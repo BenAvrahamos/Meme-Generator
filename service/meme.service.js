@@ -25,15 +25,15 @@ function getImg(idx = 0) {
 function setLineTxt(elTxt) {
     gMeme.lines[0].txt = elTxt
 
-    renderMeme()
+    renderMeme(gMeme)
 }
 
-function getMeme(idx = 0) {
+// function getMeme() {
 
-    return gMeme
-}
+//     return gMeme
+// }
 
 function setImg(id){
-    const idx = id -1
-    renderMeme(idx)
+   gMeme.selectedImgId =id
+   renderMeme(gMeme)
 }
