@@ -166,3 +166,20 @@ function onClick(ev) {
 
 
 }
+
+function switchSection() {
+    const elGallery = document.querySelector('.gallery')
+    const elEditor = document.querySelector('.editor')
+    const elNavBtnTxt= document.querySelector('.nav-btn span')
+    console.log(elNavBtnTxt.innerText);
+
+    elGallery.classList.toggle('hide')
+    elEditor.classList.toggle('hide')
+
+    if (elNavBtnTxt.innerText === 'To The Editor') elNavBtnTxt.innerText = 'Back To The Gallery'
+    else elNavBtnTxt.innerText = 'To The Editor'
+
+
+
+
+}

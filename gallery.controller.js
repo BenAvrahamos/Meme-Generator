@@ -19,5 +19,6 @@ function renderGallery() {
 function onSelectImg(id) {
     setImg(id)
     renderMeme(gMeme)
+    switchSection()
 }
 
