@@ -18,16 +18,6 @@ var gMeme = {
             textWidth : null,
             textHight : null
         },
-
-        {
-            txt: 'text',
-            size: 20,
-            color: 'Black',
-            posX : null,
-            posY : null,
-            textWidth : null,
-            textHight : null
-        }
     ]
 }
 
@@ -66,6 +56,12 @@ function switchLine() {
     gMeme.selectedLineIdx += 1
     if (gMeme.selectedLineIdx > gMeme.lines.length - 1)
         gMeme.selectedLineIdx = 0
+
+}
+
+function switchWithClick(idx){
+
+    gMeme.selectedLineIdx = idx
 
 }
 
