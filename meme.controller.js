@@ -26,7 +26,7 @@ function renderMeme(meme) {
     if (selectedImgId !== null) {
         const imageIdx = selectedImgId - 1
         const elImg = new Image()
-        elImg.src = getImg(imageIdx)
+        elImg.src = getImgByIdx(imageIdx)
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         drawLines(lines, selectedLineIdx)
     }
