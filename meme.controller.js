@@ -6,10 +6,15 @@ let gCtx
 function onInit(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+
+    renderMeme()
 }
 
 
 function renderMeme(){
-    const img = getMeme()
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+    const elImg = new Image()
+    elImg.src =getMeme()
+
+    elImg.onload = () => 
+    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 }
