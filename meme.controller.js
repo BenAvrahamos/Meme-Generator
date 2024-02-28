@@ -23,7 +23,7 @@ function renderMeme(meme) {
         const elImg = new Image()
         elImg.src = getImg(imageIdx)
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawLines(lines,selectedLineIdx)
+        drawLines(lines, selectedLineIdx)
     }
 
 }
@@ -34,10 +34,10 @@ function onTxtInput(elTxt) {
     renderMeme(gMeme)
 }
 
-function drawLine(line,selectedLineIdx) {
+function drawLine(line, selectedLineIdx) {
 
-     const margin = selectedLineIdx *20 + 200
-     console.log(selectedLineIdx);
+    const margin = selectedLineIdx * 20 + 200
+    console.log(selectedLineIdx);
 
     const { txt, size, color } = line
     gCtx.fillStyle = `${color}`
@@ -71,10 +71,15 @@ function onChangeColor(value) {
 
 
 function drawLines(lines) {
-    lines.forEach((line,selectedLineIdx) => drawLine(line,selectedLineIdx))
+    lines.forEach((line, selectedLineIdx) => drawLine(line, selectedLineIdx))
 }
 
-function onSwitchLine(){
+function onSwitchLine() {
     switchLine()
+    renderMeme(gMeme)
+}
+
+function onAddLine() {
+    addLine()
     renderMeme(gMeme)
 }

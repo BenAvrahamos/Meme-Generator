@@ -10,13 +10,13 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: '',
+            txt: 'text',
             size: 20,
             color: 'Black'
         },
 
         {
-            txt: '',
+            txt: 'text',
             size: 20,
             color: 'Black'
         }
@@ -33,7 +33,7 @@ function getImg(idx = null) {
 function setLineTxt(elTxt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
 
-    
+
 
 
 }
@@ -56,7 +56,19 @@ function changeColor(value) {
 
 function switchLine() {
     gMeme.selectedLineIdx += 1
-    if (gMeme.selectedLineIdx > gMeme.lines.length - 1) 
-    gMeme.selectedLineIdx = 0
+    if (gMeme.selectedLineIdx > gMeme.lines.length - 1)
+        gMeme.selectedLineIdx = 0
 
+}
+
+
+function addLine() {
+    gMeme.lines.push(
+        {
+            txt: 'text',
+            size: 20,
+            color: 'Black'
+        }
+    )
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
