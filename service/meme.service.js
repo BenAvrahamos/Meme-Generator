@@ -12,13 +12,21 @@ var gMeme = {
         {
             txt: 'text',
             size: 20,
-            color: 'Black'
+            color: 'Black',
+            posX : null,
+            posY : null,
+            textWidth : null,
+            textHight : null
         },
 
         {
             txt: 'text',
             size: 20,
-            color: 'Black'
+            color: 'Black',
+            posX : null,
+            posY : null,
+            textWidth : null,
+            textHight : null
         }
     ]
 }
@@ -67,8 +75,23 @@ function addLine() {
         {
             txt: 'text',
             size: 20,
-            color: 'Black'
+            color: 'Black',
+            posX : null,
+            posY : null,
+            textWidth : null,
+            textHight : null
+
         }
     )
     gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
+function setLineCoords(indx, x, y, textWidth, textHight) {
+
+    const currLine = gMeme.lines[indx]
+    currLine.posX = x
+    currLine.posY = y
+    currLine.textWidth = textWidth
+    currLine.textHight = textHight
+
 }

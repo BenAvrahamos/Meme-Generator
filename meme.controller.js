@@ -35,7 +35,7 @@ function onTxtInput(elTxt) {
 
 function drawLine(line, indx) {
 
-    const margin = indx * 20 + 200
+    const margin = indx * 50
 
     const { txt, size, color } = line
     gCtx.fillStyle = `${color}`
@@ -44,7 +44,7 @@ function drawLine(line, indx) {
     // gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
 
-    gCtx.fillText(txt, 200, margin)
+    gCtx.fillText(txt, 200, 100 + margin)
     // gCtx.strokeText(txt, 200, 100)
 
 
@@ -52,10 +52,19 @@ function drawLine(line, indx) {
 
     if (indx === gMeme.selectedLineIdx) {
         const textAspects = gCtx.measureText(txt)
+
         const textHight = textAspects.actualBoundingBoxAscent +
-            textAspects.actualBoundingBoxDescent
-        gCtx.strokeRect(200, 100 - textAspects.actualBoundingBoxAscent +
-            margin / 2, textAspects.width, textHight + 5)
+            textAspects.actualBoundingBoxDescent + 5
+
+        const textWidth = textAspects.width
+
+        const x = 200
+        const y = 100 - textAspects.actualBoundingBoxAscent
+            + margin
+
+        gCtx.strokeRect(x, y, textWidth, textHight)
+
+        setLineCoords(indx,x,y,textWidth,textHight)
     }
 
 
