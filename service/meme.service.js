@@ -19,8 +19,6 @@ var gMeme = {
 
 
 function getImg(idx = 0) {
-
-
     return gImgs[idx].url
 }
 
@@ -30,8 +28,12 @@ function setLineTxt(elTxt) {
     renderMeme()
 }
 
-
 function getMeme(idx = 0) {
 
     return gMeme
+}
+
+function setImg(id){
+    const idx = id -1
+    renderMeme(idx)
 }
