@@ -12,11 +12,12 @@ function onInit() {
 function renderMeme(idx) {
     const elImg = new Image()
     elImg.src = getImg(idx)
-    elImg.onload = () => {
-        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawText(200, 100)
-    }
+    console.log(idx);
 
+    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+
+
+    drawText(200, 100)
 }
 
 function onTxtInput(elTxt) {
