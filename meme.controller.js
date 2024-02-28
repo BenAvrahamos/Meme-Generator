@@ -7,7 +7,6 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
-
 }
 
 function renderMeme(meme) {
@@ -15,7 +14,7 @@ function renderMeme(meme) {
     const { selectedImgId, selectedLineIdx, lines } = meme
     // const { txt, size, color } = lines[0]
 
-    console.log(selectedImgId);
+
 
 
     if (selectedImgId !== null) {
@@ -34,10 +33,9 @@ function onTxtInput(elTxt) {
     renderMeme(gMeme)
 }
 
-function drawLine(line, selectedLineIdx) {
+function drawLine(line, indx) {
 
-    const margin = selectedLineIdx * 20 + 200
-    console.log(selectedLineIdx);
+    const margin = indx * 20 + 200
 
     const { txt, size, color } = line
     gCtx.fillStyle = `${color}`
@@ -48,6 +46,19 @@ function drawLine(line, selectedLineIdx) {
 
     gCtx.fillText(txt, 200, margin)
     // gCtx.strokeText(txt, 200, 100)
+
+
+
+
+    if (indx === gMeme.selectedLineIdx) {
+        const textAspects = gCtx.measureText(txt)
+        const textHight = textAspects.actualBoundingBoxAscent +
+            textAspects.actualBoundingBoxDescent
+        gCtx.strokeRect(200, 100 - textAspects.actualBoundingBoxAscent +
+            margin / 2, textAspects.width, textHight + 5)
+    }
+
+
 
 }
 
@@ -71,7 +82,7 @@ function onChangeColor(value) {
 
 
 function drawLines(lines) {
-    lines.forEach((line, selectedLineIdx) => drawLine(line, selectedLineIdx))
+    lines.map((line, index) => drawLine(line, index))
 }
 
 function onSwitchLine() {
