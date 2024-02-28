@@ -23,8 +23,9 @@
 
         <div class="editor-options">
             <input oninput="onTxtInput(value)" type="text" name="text-input" id="input">
+            <button onclick="onSwitchLine()"> Next Line</button>
             <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-           <input type="color" oninput="onChangeColor(value)">
+            <input type="color" oninput="onChangeColor(value)">
            <button onclick="onChangeFontSize(+3)">+</button>
            <button onclick="onChangeFontSize(-3)">-</button>
         </div>

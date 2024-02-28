@@ -7,20 +7,25 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
+
 }
 
-function renderMeme(gMeme) {
+function renderMeme(meme) {
 
-    const { selectedImgId, selectedLineIdx, lines } = gMeme
-    const { txt, size, color } = lines[0]
+    const { selectedImgId, selectedLineIdx, lines } = meme
+    // const { txt, size, color } = lines[0]
 
-    const elImg = new Image()
-    elImg.src = getImg(selectedImgId - 1)
-
-    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    console.log(selectedImgId);
 
 
-    drawText(selectedLineIdx, 200, 100)
+    if (selectedImgId !== null) {
+        const imageIdx = selectedImgId - 1
+        const elImg = new Image()
+        elImg.src = getImg(imageIdx)
+        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+        drawLines(lines)
+    }
+
 }
 
 function onTxtInput(elTxt) {
@@ -29,17 +34,17 @@ function onTxtInput(elTxt) {
     renderMeme(gMeme)
 }
 
-function drawText(idx = 0, x, y) {
+function drawLine(line) {
 
-    const { txt, size, color } = gMeme.lines[idx]
+    const { txt, size, color } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
 
     // gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
 
-    gCtx.fillText(txt, x, y)
-    // gCtx.strokeText(txt, x, y)
+    gCtx.fillText(txt, 200, 100)
+    // gCtx.strokeText(txt, 200, 100)
 
 }
 
@@ -51,13 +56,22 @@ function downloadCanvas(elLink) {
     elLink.href = dataUrl
 }
 
-function onChangeFontSize(value){
+function onChangeFontSize(value) {
     changeFontSize(value)
     renderMeme(gMeme)
 }
 
-function onChangeColor(value){
+function onChangeColor(value) {
     changeColor(value)
     renderMeme(gMeme)
 }
 
+
+function drawLines(lines) {
+    lines.forEach(line => drawLine(line,100,200))
+}
+
+function onSwitchLine(){
+    switchLine()
+    renderMeme(gMeme)
+}

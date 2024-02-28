@@ -6,24 +6,34 @@ var gImgs = [
 ]
 
 var gMeme = {
-    selectedImgId: 1,
+    selectedImgId: null,
     selectedLineIdx: 0,
     lines: [
         {
             txt: '',
             size: 20,
-            color: 'White'
+            color: 'Black'
+        },
+
+        {
+            txt: '',
+            size: 20,
+            color: 'Black'
         }
     ]
 }
 
 
-function getImg(idx = 0) {
-    return gImgs[idx].url
+function getImg(idx = null) {
+    if (idx !== null) {
+        return gImgs[idx].url
+    }
 }
 
 function setLineTxt(elTxt) {
-    gMeme.lines[0].txt = elTxt
+    gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
+
+    
 
 
 }
@@ -35,11 +45,18 @@ function setImg(id) {
 
 function changeFontSize(value) {
 
-    gMeme.lines[0].size += value
+    gMeme.lines[gMeme.selectedLineIdx].size += value
 }
 
 function changeColor(value) {
-    gMeme.lines[0].color = value
+    gMeme.lines[gMeme.selectedLineIdx].color = value
 
     renderMeme(gMeme)
+}
+
+function switchLine() {
+    gMeme.selectedLineIdx += 1
+    if (gMeme.selectedLineIdx > gMeme.lines.length - 1) 
+    gMeme.selectedLineIdx = 0
+
 }
