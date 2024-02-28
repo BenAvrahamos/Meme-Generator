@@ -25,15 +25,21 @@ function getImg(idx = 0) {
 function setLineTxt(elTxt) {
     gMeme.lines[0].txt = elTxt
 
-    renderMeme(gMeme)
+
 }
 
-// function getMeme() {
+function setImg(id) {
+    gMeme.selectedImgId = id
 
-//     return gMeme
-// }
+}
 
-function setImg(id){
-   gMeme.selectedImgId =id
-   renderMeme(gMeme)
+function changeFontSize(value) {
+
+    gMeme.lines[0].size += value
+}
+
+function changeColor(value) {
+    gMeme.lines[0].color = value
+
+    renderMeme(gMeme)
 }

@@ -15,7 +15,7 @@ function renderMeme(gMeme) {
     const { txt, size, color } = lines[0]
 
     const elImg = new Image()
-    elImg.src = getImg(selectedImgId-1)
+    elImg.src = getImg(selectedImgId - 1)
 
     gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 
@@ -26,6 +26,7 @@ function renderMeme(gMeme) {
 function onTxtInput(elTxt) {
 
     setLineTxt(elTxt)
+    renderMeme(gMeme)
 }
 
 function drawText(idx = 0, x, y) {
@@ -42,12 +43,21 @@ function drawText(idx = 0, x, y) {
 
 }
 
-
 function downloadCanvas(elLink) {
-    
+
     elLink.download = 'my-img'
 
     const dataUrl = gElCanvas.toDataURL()
     elLink.href = dataUrl
+}
+
+function onChangeFontSize(value){
+    changeFontSize(value)
+    renderMeme(gMeme)
+}
+
+function onChangeColor(value){
+    changeColor(value)
+    renderMeme(gMeme)
 }
 
