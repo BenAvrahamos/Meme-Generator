@@ -23,10 +23,10 @@ var gMeme = {
         {
             txt: 'text',
             size: 80,
-            color: 'White',
+            color: '#FFFFFF',
             stroke : false,
 
-            alignment: 'left',
+            alignment: 'center',
 
             posX: null,
             posY: null,
@@ -39,6 +39,10 @@ var gMeme = {
 
 function getImg(){
     return gImgs
+}
+
+function getGMeme(){
+    return gMeme
 }
 
 function getImgByIdx(idx = null) {
@@ -100,7 +104,7 @@ function addLine() {
         {
             txt: 'text',
             size: 80,
-            color: 'White',
+            color: '#FFFFFF',
             stroke : false,
 
             alignment: 'center',

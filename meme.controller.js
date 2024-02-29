@@ -2,6 +2,8 @@
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
+
+
 let gElCanvas
 let gCtx
 
@@ -12,6 +14,7 @@ function onInit() {
     addListeners()
     gElCanvas.addEventListener('click', onClick)
     gElCanvas.addEventListener('click', onClick)
+
 }
 
 function renderMeme(meme) {
@@ -29,12 +32,14 @@ function renderMeme(meme) {
 
 function onTxtInput(elTxt) {
     setLineTxt(elTxt)
+    const gMeme = getGMeme()
     renderMeme(gMeme)
 }
 
 function drawLine(line, indx) {
     let txtPosX
     let align
+    const gMeme = getGMeme()
 
 
     switch (line.alignment) {
@@ -118,11 +123,13 @@ function downloadCanvas(elLink) {
 }
 
 function onChangeFontSize(value) {
+    const gMeme = getGMeme()
     changeFontSize(value)
     renderMeme(gMeme)
 }
 
 function onChangeColor(value) {
+    const gMeme = getGMeme()
     changeColor(value)
     renderMeme(gMeme)
 }
@@ -132,21 +139,27 @@ function drawLines(lines) {
 }
 
 function onSwitchLine() {
+    const gMeme = getGMeme()
     switchLine()
+    updateSettings()
     renderMeme(gMeme)
 }
 
 function onAddLine() {
+    const gMeme = getGMeme()
     addLine()
     renderMeme(gMeme)
+    updateSettings()
 }
 
 function onToggleStroke(value) {
+    const gMeme = getGMeme()
     toggleStroke(value)
     renderMeme(gMeme)
 }
 
 function onAlignText(dir){
+    const gMeme = getGMeme()
     alignText(dir)
     renderMeme(gMeme)
 }
@@ -179,6 +192,7 @@ function getEvPos(ev) {
 }
 
 function onClick(ev) {
+    const gMeme = getGMeme()
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
         const { posX, posY, textHight, textWidth } = line
@@ -190,6 +204,7 @@ function onClick(ev) {
             clickPos.y <= posY + textHight) {
             switchWithClick(idx)
             renderMeme(gMeme)
+            updateSettings()
         }
     });
 }
@@ -205,5 +220,20 @@ function switchSection() {
 
     if (elNavBtnTxt.innerText === 'To The Editor') elNavBtnTxt.innerText = 'Back To \nThe Gallery'
     else elNavBtnTxt.innerText = 'To The Editor'
+
+}
+
+function updateSettings(){
+    const gMeme = getGMeme()
+    const {txt,color,stroke} = gMeme.lines[gMeme.selectedLineIdx]
+    const elSettings = document.querySelector('.editor-options')
+
+
+elSettings.querySelector('input').value = txt
+
+if (stroke) elSettings.querySelector('input[type="checkbox"]').checked = true
+else elSettings.querySelector('input[type="checkbox"]').checked = false
+
+elSettings.querySelector('input[type="color"]').value = color
 
 }
