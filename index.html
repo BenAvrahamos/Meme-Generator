@@ -30,17 +30,30 @@
 
     <section class="editor hide">
         <div class="canvas-container">
-            <canvas width="400" height="400"></canvas>
+            <canvas width="800" height="800"></canvas>
         </div>
 
         <div class="editor-options">
-            <input oninput="onTxtInput(value)" type="text" name="text-input" id="input">
-            <button onclick="onAddLine()"> Add Text</button>
-            <button onclick="onSwitchLine()"> Next Line</button>
-            <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+
+            <div class="text-input">
+                <label for="text-input">Enter Text:</label>
+                <input oninput="onTxtInput(value)" type="text" id="text-input">
+            </div>
+
+            <div class="line-control">
+                <button onclick="onAddLine()">Add Line</button>
+                <button onclick="onSwitchLine()">Next Line</button>
+            </div>
+
+            <div class="font-control">
+                <button onclick="onChangeFontSize(+3)">+</button>
+                <button onclick="onChangeFontSize(-3)">-</button>
+            </div>
+
+            
             <input type="color" oninput="onChangeColor(value)">
-            <button onclick="onChangeFontSize(+3)">+</button>
-            <button onclick="onChangeFontSize(-3)">-</button>
+            <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+            
         </div>
 
 

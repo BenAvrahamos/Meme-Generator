@@ -1,16 +1,10 @@
 .gallery-img-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px,1fr) );
-    place-content: center;
     gap: 10px;
-    padding: 60px;
- justify-items: center;
+    padding: 5em;
 }
 
 
 .gallery-search-bar{
     height: 5vh;
     background-color: rgb(57, 75, 75);
-    display: flex;
-    justify-content: end;
 }
