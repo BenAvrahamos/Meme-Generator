@@ -141,3 +141,13 @@ function moveKeyUp(value){
 
     gMeme.lines[gMeme.selectedLineIdx].posY += value
 }
+
+function deleteLine(){
+
+const indx = gMeme.selectedLineIdx
+gMeme.lines.splice(indx, 1)
+
+gMeme.selectedLineIdx = indx -1
+
+}
+

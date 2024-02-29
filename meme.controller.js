@@ -248,7 +248,10 @@ function onMoveKeyUp(value){
 
     moveKeyUp(value)
     renderMeme(gMeme)
+}
 
-
-
+function onDeleteLine(){
+    deleteLine()
+    
+    renderMeme(gMeme)
 }
