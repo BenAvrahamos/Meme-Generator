@@ -15,19 +15,20 @@ function onInit() {
     gElCanvas.addEventListener('click', onClick)
     gElCanvas.addEventListener('click', onClick)
 
+
 }
 
 function renderMeme(meme) {
 
     const { selectedImgId, selectedLineIdx, lines } = meme
-
     if (selectedImgId !== null) {
         const imageIdx = selectedImgId - 1
         const elImg = new Image()
         elImg.src = getImgByIdx(imageIdx)
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawLines(lines, selectedLineIdx)
     }
+
+    drawLines(lines, selectedLineIdx)
 }
 
 function onTxtInput(elTxt) {
@@ -36,7 +37,7 @@ function onTxtInput(elTxt) {
     renderMeme(gMeme)
 }
 
-function drawLine(line, indx) {
+function drawLine(line, indx,) {
     let txtPosX
     let align
     const gMeme = getGMeme()
@@ -45,6 +46,7 @@ function drawLine(line, indx) {
     switch (line.alignment) {
         case 'center':
             txtPosX = gElCanvas.width / 2
+            
             align = 'center'
 
             break;
@@ -55,16 +57,13 @@ function drawLine(line, indx) {
             break;
 
         case 'right':
-            txtPosX = gElCanvas.width / 1.2
+            txtPosX = gElCanvas.width / 1.2 
             align = 'right'
 
             break;
     }
 
     const margin = indx * gElCanvas.height / 8
-
-
-    const txtPosY = gElCanvas.height / 8
 
     const { txt, size, color, stroke } = line
     gCtx.fillStyle = `${color}`
@@ -75,21 +74,22 @@ function drawLine(line, indx) {
 
     if (align === 'right') gCtx.direction = 'rtl'
     else gCtx.direction = 'ltr'
-   
-    gCtx.fillText(txt, txtPosX, txtPosY + margin)
 
+
+    gCtx.fillText(txt, txtPosX, line.posY)
+    
 
     if (stroke === true) {
 
         gCtx.lineWidth = 3
         gCtx.strokeStyle = 'Black'
         gCtx.setLineDash([0])
-       
-        gCtx.strokeText(txt, txtPosX, txtPosY + margin)
+
+        gCtx.strokeText(txt, txtPosX, line.posY)
     }
 
     if (indx === gMeme.selectedLineIdx) {
-        drawBorder(txtPosX, txtPosY, margin, txt, indx, align)
+        drawBorder(txtPosX, line.posY, margin, txt, indx, align)
     }
 
 }
@@ -100,18 +100,19 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
     let textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
     let textWidth = textAspects.width
     let x = txtPosX - textAspects.actualBoundingBoxRight
-    let y = txtPosY - textAspects.actualBoundingBoxAscent - 15 + margin
+    let y = txtPosY - textAspects.actualBoundingBoxAscent - 15
 
-    if (align === 'right') x = txtPosX - textWidth - textAspects.actualBoundingBoxRight 
-    else if (align === 'left') x = txtPosX 
-    
+    if (align === 'right') x = txtPosX - textWidth - textAspects.actualBoundingBoxRight
+    else if (align === 'left') x = txtPosX
+
 
     gCtx.lineWidth = 2
     gCtx.strokeStyle = '#47526C'
     gCtx.setLineDash([10])
-    
+
     gCtx.strokeRect(x, y, textWidth, textHight)
-    setLineCoords(indx, x, y, textWidth, textHight)
+    setLineCoords(indx,x,y,textWidth, textHight)
+    
 
 }
 
@@ -135,6 +136,7 @@ function onChangeColor(value) {
 }
 
 function drawLines(lines) {
+
     lines.map((line, index) => drawLine(line, index))
 }
 
@@ -147,7 +149,7 @@ function onSwitchLine() {
 
 function onAddLine() {
     const gMeme = getGMeme()
-    addLine()
+    addLine(gElCanvas)
     renderMeme(gMeme)
     updateSettings()
 }
@@ -158,7 +160,7 @@ function onToggleStroke(value) {
     renderMeme(gMeme)
 }
 
-function onAlignText(dir){
+function onAlignText(dir) {
     const gMeme = getGMeme()
     alignText(dir)
     renderMeme(gMeme)
@@ -195,13 +197,16 @@ function onClick(ev) {
     const gMeme = getGMeme()
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
-        const { posX, posY, textHight, textWidth } = line
+        const { borderStartX, borderStartY, borderEndX, borderEndY } = line
 
-        if (clickPos.x >= posX &&
-            clickPos.x >= posX &&
-            clickPos.x <= posX + textWidth &&
-            clickPos.y >= posY &&
-            clickPos.y <= posY + textHight) {
+
+
+
+
+        if (clickPos.x >= borderStartX &&
+            clickPos.x <= borderEndX &&
+            clickPos.y >= borderStartY &&
+            clickPos.y <= borderEndY) {
             switchWithClick(idx)
             renderMeme(gMeme)
             updateSettings()
@@ -223,17 +228,27 @@ function switchSection() {
 
 }
 
-function updateSettings(){
+function updateSettings() {
     const gMeme = getGMeme()
-    const {txt,color,stroke} = gMeme.lines[gMeme.selectedLineIdx]
+    const { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
     const elSettings = document.querySelector('.editor-options')
 
 
-elSettings.querySelector('input').value = txt
+    elSettings.querySelector('input').value = txt
 
-if (stroke) elSettings.querySelector('input[type="checkbox"]').checked = true
-else elSettings.querySelector('input[type="checkbox"]').checked = false
+    if (stroke) elSettings.querySelector('input[type="checkbox"]').checked = true
+    else elSettings.querySelector('input[type="checkbox"]').checked = false
 
-elSettings.querySelector('input[type="color"]').value = color
+    elSettings.querySelector('input[type="color"]').value = color
+
+}
+
+
+function onMoveKeyUp(value){
+
+    moveKeyUp(value)
+    renderMeme(gMeme)
+
+
 
 }

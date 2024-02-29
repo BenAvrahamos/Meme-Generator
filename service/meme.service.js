@@ -5,11 +5,11 @@ var gImgs = [
     { id: 2, url: 'img/2.jpg', keywords: ['dogs', 'funny', 'animals'] },
     { id: 3, url: 'img/3.jpg', keywords: ['cute', 'dogs', 'animals'] },
     { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cat', 'animals'] },
-    { id: 5, url: 'img/5.jpg', keywords: ['cute', 'funny','kids'] },
+    { id: 5, url: 'img/5.jpg', keywords: ['cute', 'funny', 'kids'] },
     { id: 6, url: 'img/6.jpg', keywords: ['funny', 'funny', 'smart'] },
-    { id: 7, url: 'img/7.jpg', keywords: ['cute', 'funny','kids'] },
+    { id: 7, url: 'img/7.jpg', keywords: ['cute', 'funny', 'kids'] },
     { id: 8, url: 'img/8.jpg', keywords: ['awkward', 'funny'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['cute', 'funny','kids'] },
+    { id: 9, url: 'img/9.jpg', keywords: ['cute', 'funny', 'kids'] },
     { id: 10, url: 'img/10.jpg', keywords: ['presidents', 'funny'] },
     { id: 11, url: 'img/11.jpg', keywords: ['dogs', 'funny'] },
     { id: 12, url: 'img/12.jpg', keywords: ['dogs', 'funny'] },
@@ -19,29 +19,30 @@ var gImgs = [
 var gMeme = {
     selectedImgId: null,
     selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'text',
-            size: 80,
-            color: '#FFFFFF',
-            stroke : false,
+    lines: [{
+        txt: 'text',
+        size: 80,
+        color: '#FFFFFF',
+        stroke: false,
 
-            alignment: 'center',
+        alignment: 'center',
 
-            posX: null,
-            posY: null,
+        posX: 300,
+        posY: 75,
 
-            textWidth: null,
-            textHight: null
-        },
+        borderStartX: null,
+        borderEndX: null,
+        borderStartY: null,
+        BorderEndY: null,
+    }
     ]
 }
 
-function getImg(){
+function getImg() {
     return gImgs
 }
 
-function getGMeme(){
+function getGMeme() {
     return gMeme
 }
 
@@ -89,31 +90,35 @@ function switchWithClick(idx) {
 
 }
 
-function toggleStroke(value){
+function toggleStroke(value) {
     gMeme.lines[gMeme.selectedLineIdx].stroke = value
 
 }
 
-function alignText(dir){
+function alignText(dir) {
     gMeme.lines[gMeme.selectedLineIdx].alignment = dir
 }
 
 
-function addLine() {
+function addLine(gElCanvas) {
+    const margin = (gMeme.lines.length - 1) * gElCanvas.height / 8
+
     gMeme.lines.push(
         {
             txt: 'text',
             size: 80,
             color: '#FFFFFF',
-            stroke : false,
+            stroke: false,
 
             alignment: 'center',
 
-            posX: null,
-            posY: null,
+            posX: gElCanvas.width / 2,
+            posY: gElCanvas.height / 4 + margin,
 
-            textWidth: null,
-            textHight: null
+            borderStartX: null,
+            borderEndX: null,
+            borderStartY: null,
+            BorderEndY: null,
         }
     )
     gMeme.selectedLineIdx = gMeme.lines.length - 1
@@ -121,10 +126,18 @@ function addLine() {
 
 function setLineCoords(indx, x, y, textWidth, textHight) {
 
-    const currLine = gMeme.lines[indx]
-    currLine.posX = x
-    currLine.posY = y
-    currLine.textWidth = textWidth
-    currLine.textHight = textHight
+    gMeme.lines[indx].borderStartX = x
+    gMeme.lines[indx].borderStartY = y
 
+    gMeme.lines[indx].borderEndX = x + textWidth
+    gMeme.lines[indx].borderEndY = y + textHight
+    
+
+
+}
+
+
+function moveKeyUp(value){
+
+    gMeme.lines[gMeme.selectedLineIdx].posY += value
 }
