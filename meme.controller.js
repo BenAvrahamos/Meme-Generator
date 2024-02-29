@@ -9,16 +9,21 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
-    // addListeners()
+
+    addListeners()
     gElCanvas.addEventListener('click', onClick)
     gElCanvas.addEventListener('click', onClick)
 
+
 }
+
+
 
 function renderMeme(meme) {
 
     const { selectedImgId, selectedLineIdx, lines } = meme
     // const { txt, size, color } = lines[0]
+
 
 
 
@@ -41,7 +46,10 @@ function onTxtInput(elTxt) {
 
 function drawLine(line, indx) {
 
-    const margin = indx * 50
+    const margin = indx * gElCanvas.height/8
+    const txtPosX =gElCanvas.width/2
+    const txtPosY =gElCanvas.height/8
+
 
     const { txt, size, color } = line
     gCtx.fillStyle = `${color}`
@@ -50,9 +58,10 @@ function drawLine(line, indx) {
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
 
-    gCtx.fillText(txt, 200, 100 + margin)
+    gCtx.fillText(txt, txtPosX, txtPosY + margin)
     // gCtx.strokeText(txt, 200, 100)
 
+    console.log(gElCanvas.width/4);
 
 
 
@@ -64,8 +73,8 @@ function drawLine(line, indx) {
 
         const textWidth = textAspects.width
 
-        const x = 200 - textAspects.actualBoundingBoxRight
-        const y = 100 - textAspects.actualBoundingBoxAscent - 5
+        const x = txtPosX - textAspects.actualBoundingBoxRight
+        const y = txtPosY - textAspects.actualBoundingBoxAscent - 5
             + margin
 
         gCtx.strokeRect(x, y, textWidth, textHight)
@@ -170,7 +179,7 @@ function onClick(ev) {
 function switchSection() {
     const elGallery = document.querySelector('.gallery')
     const elEditor = document.querySelector('.editor')
-    const elNavBtnTxt= document.querySelector('.nav-btn span')
+    const elNavBtnTxt = document.querySelector('.nav-btn span')
     console.log(elNavBtnTxt.innerText);
 
     elGallery.classList.toggle('hide')

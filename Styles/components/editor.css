@@ -7,7 +7,6 @@ canvas {
 
 .canvas-container {
     grid-column-start: 2;
-
 }
 
 .editor-options {
@@ -23,8 +22,14 @@ canvas {
     background-color: rgb(83, 83, 83);
 }
 
-.editor-options input,button{
-    
+.editor-options input,
+button {
+
     font-size: 0.7em;
 
+}
+
+.test{
+    width: 100px;
+    height: 100px;
 }
