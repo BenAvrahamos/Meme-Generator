@@ -22,8 +22,8 @@ var gMeme = {
     lines: [
         {
             txt: 'text',
-            size: 20,
-            color: 'Black',
+            size: 40,
+            color: 'White',
             posX: null,
             posY: null,
             textWidth: null,
@@ -85,8 +85,8 @@ function addLine() {
     gMeme.lines.push(
         {
             txt: 'text',
-            size: 20,
-            color: 'Black',
+            size: 40,
+            color: 'White',
             posX: null,
             posY: null,
             textWidth: null,
