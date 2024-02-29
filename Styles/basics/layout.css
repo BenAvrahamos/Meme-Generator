@@ -12,6 +12,7 @@
     grid-template-columns: repeat(auto-fit, minmax(500px,1fr) );
     place-content: center;
     justify-items: center;
+    
 
     
 }
@@ -21,8 +22,8 @@
     justify-content: end;
 }
 
-/* Editor */
 
+/* Editor */
 .editor {
     display: grid;
     grid-template-columns: minmax(20px, 1fr) minmax(max-content, max-content) minmax(max-content, 1fr);
