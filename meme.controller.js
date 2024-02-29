@@ -10,13 +10,15 @@ let gCtx
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-
+    
     addListeners()
     gElCanvas.addEventListener('click', onClick)
     gElCanvas.addEventListener('click', onClick)
 
 
+
 }
+
 
 function renderMeme(meme) {
 
@@ -26,9 +28,9 @@ function renderMeme(meme) {
         const elImg = new Image()
         elImg.src = getImgByIdx(imageIdx)
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+        drawLines(lines, selectedLineIdx)
     }
-
-    drawLines(lines, selectedLineIdx)
+    
 }
 
 function onTxtInput(elTxt) {

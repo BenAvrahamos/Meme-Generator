@@ -18,3 +18,14 @@
     border: 2px solid lightblue;
     margin-block: 5px;
 }
+
+.flexible-btn{
+    margin-left: 0;
+    border-radius: 50% 20% / 10% 40%;
+    font-size: 1.5em;
+    border: solid black 2px;
+
+    background-color: rgb(67, 152, 173);
+
+
+}

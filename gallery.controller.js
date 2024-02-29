@@ -23,3 +23,13 @@ function onSelectImg(id) {
     switchSection()
 }
 
+
+
+function onRandomImg(){
+    const imgsCount =getImg().length
+    
+    onSelectImg(getRandomInt(1,imgsCount))
+
+    
+
+}
