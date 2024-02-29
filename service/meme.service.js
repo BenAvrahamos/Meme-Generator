@@ -26,7 +26,7 @@ var gMeme = {
             color: 'White',
             stroke : false,
 
-            alignment: 'center',
+            alignment: 'left',
 
             posX: null,
             posY: null,
