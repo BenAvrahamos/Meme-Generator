@@ -46,6 +46,8 @@ function onTxtInput(elTxt) {
 
 function drawLine(line, indx) {
 
+    
+
     const margin = indx * gElCanvas.height / 8
     const txtPosX = gElCanvas.width / 2
     const txtPosY = gElCanvas.height / 8
@@ -60,11 +62,13 @@ function drawLine(line, indx) {
 
     gCtx.fillText(txt, txtPosX, txtPosY + margin)
 
-    if (stroke === true){
-    gCtx.lineWidth = 2
-    gCtx.strokeText(txt, txtPosX, txtPosY + margin)
+    if (stroke === true) {
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = 'Black'
+        gCtx.setLineDash([0])
+        gCtx.strokeText(txt, txtPosX, txtPosY + margin)
     }
-    
+ 
 
 
 
@@ -72,14 +76,18 @@ function drawLine(line, indx) {
         const textAspects = gCtx.measureText(txt)
 
         const textHight = textAspects.actualBoundingBoxAscent +
-            textAspects.actualBoundingBoxDescent + 10
+            textAspects.actualBoundingBoxDescent + 30
 
         const textWidth = textAspects.width
 
         const x = txtPosX - textAspects.actualBoundingBoxRight
-        const y = txtPosY - textAspects.actualBoundingBoxAscent - 5
+        const y = txtPosY - textAspects.actualBoundingBoxAscent - 15
             + margin
+            
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = '#47526C'
 
+        gCtx.setLineDash([10])
         gCtx.strokeRect(x, y, textWidth, textHight)
 
         setLineCoords(indx, x, y, textWidth, textHight)
@@ -122,7 +130,7 @@ function onAddLine() {
     renderMeme(gMeme)
 }
 
-function onToggleStroke(value){
+function onToggleStroke(value) {
     toggleStroke(value)
     renderMeme(gMeme)
 

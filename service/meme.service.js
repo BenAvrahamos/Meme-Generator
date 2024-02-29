@@ -91,7 +91,7 @@ function addLine() {
     gMeme.lines.push(
         {
             txt: 'text',
-            size: 40,
+            size: 80,
             color: 'White',
             stroke : false,
             posX: null,
