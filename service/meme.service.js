@@ -26,7 +26,7 @@ var gMeme = {
             color: 'White',
             stroke : false,
 
-            alignment: 'center',
+            alignment: 'left',
 
             posX: null,
             posY: null,
@@ -88,6 +88,10 @@ function switchWithClick(idx) {
 function toggleStroke(value){
     gMeme.lines[gMeme.selectedLineIdx].stroke = value
 
+}
+
+function alignText(dir){
+    gMeme.lines[gMeme.selectedLineIdx].alignment = dir
 }
 
 
