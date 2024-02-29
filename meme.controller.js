@@ -142,6 +142,7 @@ function drawLines(lines) {
 
 function onSwitchLine() {
     const gMeme = getGMeme()
+    if (!gMeme.lines.length) return
     switchLine()
     updateSettings()
     renderMeme(gMeme)
@@ -252,6 +253,6 @@ function onMoveKeyUp(value){
 
 function onDeleteLine(){
     deleteLine()
-    
+
     renderMeme(gMeme)
 }

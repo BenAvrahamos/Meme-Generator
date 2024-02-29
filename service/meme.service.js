@@ -67,17 +67,19 @@ function setImg(id) {
 }
 
 function changeFontSize(value) {
-
+    if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].size += value
 }
 
 function changeColor(value) {
+    if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].color = value
 
     renderMeme(gMeme)
 }
 
 function switchLine() {
+    if (!gMeme.lines.length) return
     gMeme.selectedLineIdx += 1
     if (gMeme.selectedLineIdx > gMeme.lines.length - 1)
         gMeme.selectedLineIdx = 0
@@ -85,22 +87,26 @@ function switchLine() {
 }
 
 function switchWithClick(idx) {
+    if (!gMeme.lines.length) return
 
     gMeme.selectedLineIdx = idx
 
 }
 
 function toggleStroke(value) {
+    if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].stroke = value
 
 }
 
 function alignText(dir) {
+    if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].alignment = dir
 }
 
 
 function addLine(gElCanvas) {
+    
     const margin = (gMeme.lines.length - 1) * gElCanvas.height / 8
 
     gMeme.lines.push(
@@ -138,7 +144,7 @@ function setLineCoords(indx, x, y, textWidth, textHight) {
 
 
 function moveKeyUp(value){
-
+    if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].posY += value
 }
 
