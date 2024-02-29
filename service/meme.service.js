@@ -22,8 +22,9 @@ var gMeme = {
     lines: [
         {
             txt: 'text',
-            size: 40,
+            size: 80,
             color: 'White',
+            stroke : false,
             posX: null,
             posY: null,
             textWidth: null,
@@ -80,6 +81,11 @@ function switchWithClick(idx) {
 
 }
 
+function toggleStroke(value){
+    gMeme.lines[gMeme.selectedLineIdx].stroke = value
+
+}
+
 
 function addLine() {
     gMeme.lines.push(
@@ -87,6 +93,7 @@ function addLine() {
             txt: 'text',
             size: 40,
             color: 'White',
+            stroke : false,
             posX: null,
             posY: null,
             textWidth: null,

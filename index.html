@@ -52,6 +52,11 @@
                 <button onclick="onChangeFontSize(-3)">-</button>
             </div>
 
+            <div class="stroke-control">
+                <label for="stroke" >Stroke</label>
+                <input type="checkbox" id="stroke" onchange="onToggleStroke(this.checked)">
+            </div>
+
 
             <input type="color" oninput="onChangeColor(value)">
             <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>

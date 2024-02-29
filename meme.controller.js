@@ -46,12 +46,12 @@ function onTxtInput(elTxt) {
 
 function drawLine(line, indx) {
 
-    const margin = indx * gElCanvas.height/8
-    const txtPosX =gElCanvas.width/2
-    const txtPosY =gElCanvas.height/8
+    const margin = indx * gElCanvas.height / 8
+    const txtPosX = gElCanvas.width / 2
+    const txtPosY = gElCanvas.height / 8
 
 
-    const { txt, size, color } = line
+    const { txt, size, color, stroke } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
 
@@ -59,9 +59,12 @@ function drawLine(line, indx) {
     gCtx.textBaseline = 'middle'
 
     gCtx.fillText(txt, txtPosX, txtPosY + margin)
-    // gCtx.strokeText(txt, 200, 100)
 
-    console.log(gElCanvas.width/4);
+    if (stroke === true){
+    gCtx.lineWidth = 2
+    gCtx.strokeText(txt, txtPosX, txtPosY + margin)
+    }
+    
 
 
 
@@ -117,6 +120,12 @@ function onSwitchLine() {
 function onAddLine() {
     addLine()
     renderMeme(gMeme)
+}
+
+function onToggleStroke(value){
+    toggleStroke(value)
+    renderMeme(gMeme)
+
 }
 
 
@@ -180,7 +189,7 @@ function switchSection() {
     const elGallery = document.querySelector('.gallery')
     const elEditor = document.querySelector('.editor')
     const elNavBtnTxt = document.querySelector('.nav-btn span')
-    console.log(elNavBtnTxt.innerText);
+
 
     elGallery.classList.toggle('hide')
     elEditor.classList.toggle('hide')
