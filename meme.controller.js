@@ -90,18 +90,21 @@ function drawLine(line, indx) {
 }
 
 
-function drawBorder(txtPosX, txtPosY, margin, txt, indx) {
-    const textAspects = gCtx.measureText(txt)
+function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
+    let textAspects = gCtx.measureText(txt)
+    let textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
+    let textWidth = textAspects.width
+    let x = txtPosX - textAspects.actualBoundingBoxRight
+    let y = txtPosY - textAspects.actualBoundingBoxAscent - 15 + margin
 
-    const textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
-    const textWidth = textAspects.width
-
-    const x = txtPosX - textAspects.actualBoundingBoxRight
-    const y = txtPosY - textAspects.actualBoundingBoxAscent - 15 + margin
+    if (align === 'right') x = txtPosX - textWidth - textAspects.actualBoundingBoxRight 
+    else if (align === 'left') x = txtPosX 
+    
 
     gCtx.lineWidth = 2
     gCtx.strokeStyle = '#47526C'
     gCtx.setLineDash([10])
+    
     gCtx.strokeRect(x, y, textWidth, textHight)
     setLineCoords(indx, x, y, textWidth, textHight)
 
