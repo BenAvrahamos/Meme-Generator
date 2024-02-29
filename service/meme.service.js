@@ -90,6 +90,10 @@ function toggleStroke(value){
 
 }
 
+function alignText(dir){
+    gMeme.lines[gMeme.selectedLineIdx].alignment = dir
+}
+
 
 function addLine() {
     gMeme.lines.push(
