@@ -1,14 +1,24 @@
-.header{
-    background-color:#20c7ddb6;
+.header {
+    background-color: #20c7ddb6;
     border-end-start-radius: 60%;
     display: flex;
-    gap: 20vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     border: lightblue solid 2px;
+
 }
 
-.nav-btn{
+
+
+
+.nav-btn {
+    position: absolute;
+    left: 0;
     border: solid black 1px;
     width: 10vh;
+    height: 100%;
+    
 
     border-start-end-radius: 60%;
 }
