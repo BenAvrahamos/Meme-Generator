@@ -25,8 +25,12 @@ var gMeme = {
             size: 80,
             color: 'White',
             stroke : false,
+
+            alignment: 'center',
+
             posX: null,
             posY: null,
+
             textWidth: null,
             textHight: null
         },
@@ -94,11 +98,14 @@ function addLine() {
             size: 80,
             color: 'White',
             stroke : false,
+
+            alignment: 'center',
+
             posX: null,
             posY: null,
+
             textWidth: null,
             textHight: null
-
         }
     )
     gMeme.selectedLineIdx = gMeme.lines.length - 1

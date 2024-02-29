@@ -9,24 +9,14 @@ function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
-
     addListeners()
     gElCanvas.addEventListener('click', onClick)
     gElCanvas.addEventListener('click', onClick)
-
-
 }
-
-
 
 function renderMeme(meme) {
 
     const { selectedImgId, selectedLineIdx, lines } = meme
-    // const { txt, size, color } = lines[0]
-
-
-
-
 
     if (selectedImgId !== null) {
         const imageIdx = selectedImgId - 1
@@ -35,73 +25,94 @@ function renderMeme(meme) {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         drawLines(lines, selectedLineIdx)
     }
-
 }
 
 function onTxtInput(elTxt) {
-
     setLineTxt(elTxt)
     renderMeme(gMeme)
 }
 
 function drawLine(line, indx) {
+    let txtPosX
+    let align
 
-    
+
+    switch (line.alignment) {
+        case 'center':
+            txtPosX = gElCanvas.width / 2
+            align = 'center'
+
+            break;
+        case 'left':
+            txtPosX = gElCanvas.width / 6
+            align = 'left'
+
+            break;
+
+        case 'right':
+            txtPosX = gElCanvas.width / 1.2
+            align = 'right'
+
+            break;
+    }
 
     const margin = indx * gElCanvas.height / 8
-    const txtPosX = gElCanvas.width / 2
-    const txtPosY = gElCanvas.height / 8
 
+
+    const txtPosY = gElCanvas.height / 8
 
     const { txt, size, color, stroke } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
 
-    gCtx.textAlign = 'center'
+    gCtx.textAlign = align
     gCtx.textBaseline = 'middle'
+
+    if (align === 'right') gCtx.direction = 'rtl'
+    else gCtx.direction = 'ltr'
 
     gCtx.fillText(txt, txtPosX, txtPosY + margin)
 
+
     if (stroke === true) {
-        gCtx.lineWidth = 2
+
+        gCtx.lineWidth = 3
         gCtx.strokeStyle = 'Black'
         gCtx.setLineDash([0])
         gCtx.strokeText(txt, txtPosX, txtPosY + margin)
     }
- 
-
-
 
     if (indx === gMeme.selectedLineIdx) {
-        const textAspects = gCtx.measureText(txt)
-
-        const textHight = textAspects.actualBoundingBoxAscent +
-            textAspects.actualBoundingBoxDescent + 30
-
-        const textWidth = textAspects.width
-
-        const x = txtPosX - textAspects.actualBoundingBoxRight
-        const y = txtPosY - textAspects.actualBoundingBoxAscent - 15
-            + margin
-            
-        gCtx.lineWidth = 2
-        gCtx.strokeStyle = '#47526C'
-
-        gCtx.setLineDash([10])
-        gCtx.strokeRect(x, y, textWidth, textHight)
-
-        setLineCoords(indx, x, y, textWidth, textHight)
+        drawBorder(txtPosX, txtPosY, margin, txt, indx, align)
     }
-
-
 
 }
 
+
+function drawBorder(txtPosX, txtPosY, margin, txt, indx) {
+    const textAspects = gCtx.measureText(txt)
+
+    const textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
+    const textWidth = textAspects.width
+
+    const x = txtPosX - textAspects.actualBoundingBoxRight
+    const y = txtPosY - textAspects.actualBoundingBoxAscent - 15 + margin
+
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = '#47526C'
+
+
+    gCtx.setLineDash([10])
+    gCtx.strokeRect(x, y, textWidth, textHight)
+
+    setLineCoords(indx, x, y, textWidth, textHight)
+
+}
+
+
 function downloadCanvas(elLink) {
-
-    elLink.download = 'my-img'
-
     const dataUrl = gElCanvas.toDataURL()
+    elLink.download = 'my-img'
     elLink.href = dataUrl
 }
 
@@ -114,7 +125,6 @@ function onChangeColor(value) {
     changeColor(value)
     renderMeme(gMeme)
 }
-
 
 function drawLines(lines) {
     lines.map((line, index) => drawLine(line, index))
@@ -133,11 +143,7 @@ function onAddLine() {
 function onToggleStroke(value) {
     toggleStroke(value)
     renderMeme(gMeme)
-
 }
-
-
-
 
 function addListeners() {
     // gElCanvas.addEventListener('mousedown', onStartLine)
@@ -146,9 +152,7 @@ function addListeners() {
     // gElCanvas.addEventListener('touchstart', onStartLine)
     // gElCanvas.addEventListener('touchmove', onDrawLine)
     // gElCanvas.addEventListener('touchend', onEndLine)
-
 }
-
 
 function getEvPos(ev) {
     let pos = {
@@ -168,7 +172,6 @@ function getEvPos(ev) {
     return pos
 }
 
-
 function onClick(ev) {
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
@@ -181,16 +184,8 @@ function onClick(ev) {
             clickPos.y <= posY + textHight) {
             switchWithClick(idx)
             renderMeme(gMeme)
-
-
-
-
         }
-
-
     });
-
-
 }
 
 function switchSection() {
@@ -204,8 +199,5 @@ function switchSection() {
 
     if (elNavBtnTxt.innerText === 'To The Editor') elNavBtnTxt.innerText = 'Back To \nThe Gallery'
     else elNavBtnTxt.innerText = 'To The Editor'
-
-
-
 
 }
