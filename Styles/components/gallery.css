@@ -5,6 +5,15 @@
 
 
 .gallery-search-bar{
+
     height: 5vh;
-    background-color: rgb(57, 75, 75);
+    background-color: rgb(83, 83, 83);
+    box-shadow: 0 0 1px 1px;
+    border: 2px solid lightblue;
+}
+
+.gallery-img{
+    align-self: center;
+    box-shadow: 0 0 15px 4px;
+    border: 2px solid lightblue;
 }

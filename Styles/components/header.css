@@ -2,6 +2,8 @@
     background-color: #20c7ddb6;
     border-end-start-radius: 60%;
     border: lightblue solid 2px;
+    box-shadow: 0 0 15px 4px;
+    margin-bottom: 10px;
 }
 
 
@@ -10,8 +12,13 @@
 .nav-btn {
     position: absolute;
     left: 0;
-    border: solid black 1px;
-    width: 10vh;
-    height: 100%;
+
+    width: 15vh;
+    height: 120%;
     border-start-end-radius: 60%;
+    border-end-start-radius: 60%;
+    font-size: 1.1em;
+    padding: 0.4em;
+    border: none;
+    box-shadow: 0 0 15px 4px;
 }

@@ -1,5 +1,6 @@
 canvas {
-    border: 1px solid rgba(0, 0, 0, 0.185);
+    box-shadow: 0 0 15px 4px;
+    border: 2px solid lightblue;
 }
 
 
@@ -16,12 +17,14 @@ canvas {
     row-gap: 10px;
     padding: 10px;
     margin: 20px;
-    border-radius: 10%;
+    border-radius: 5%;
+    box-shadow: 0 0 15px 4px;
 
-    background-color: rgb(69, 133, 67);
+    background-color: rgb(83, 83, 83);
 }
 
 .editor-options input,button{
+    
     font-size: 0.7em;
 
 }

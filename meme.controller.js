@@ -176,7 +176,7 @@ function switchSection() {
     elGallery.classList.toggle('hide')
     elEditor.classList.toggle('hide')
 
-    if (elNavBtnTxt.innerText === 'To The Editor') elNavBtnTxt.innerText = 'Back To The Gallery'
+    if (elNavBtnTxt.innerText === 'To The Editor') elNavBtnTxt.innerText = 'Back To \nThe Gallery'
     else elNavBtnTxt.innerText = 'To The Editor'
 
 
