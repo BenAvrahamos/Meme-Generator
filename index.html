@@ -32,48 +32,52 @@
 
     <section class="editor hide">
         <div class="canvas-container">
-
             <canvas width="600" height="600"></canvas>
         </div>
 
-        <div class="editor-options">
+        <section class="editor-options">
 
-            <div class="text-input">
+            <div class="text-input flex-column">
                 <label for="text-input">Enter Text:</label>
                 <input oninput="onTxtInput(value)" type="text" id="text-input">
             </div>
 
-            <div class="line-control">
+            <div class="line-control flex-column">
                 <button onclick="onAddLine()">Add Line</button>
                 <button onclick="onSwitchLine()">Next Line</button>
                 <button onclick="onDeleteLine()">Delete Line</button>
+            </div>
+
+            <div class="up-down-keys">
                 <button onclick="onMoveKeyUp(-10)">^</button>
                 <button onclick="onMoveKeyUp(10)">v</button>
+
+                <div class="font-control">
+                    <button onclick="onChangeFontSize(+3)">+</button>
+                    <button onclick="onChangeFontSize(-3)">-</button>
+                </div>
             </div>
 
 
 
-            <div class="font-control">
-                <button onclick="onChangeFontSize(+3)">+</button>
-                <button onclick="onChangeFontSize(-3)">-</button>
-            </div>
+
 
             <div class="alignment-control">
-                <button onclick="onAlignText('left')">Align Left</button>
-                <button onclick="onAlignText('center')" >Align Center</button>
-                <button onclick="onAlignText('right')">Align Right</button>
+                <button onclick="onAlignText('left')">Left</button>
+                <button onclick="onAlignText('center')">Center</button>
+                <button onclick="onAlignText('right')">Right</button>
             </div>
 
             <div class="stroke-control">
-                <label for="stroke" >Stroke</label>
+                <label for="stroke">Stroke</label>
                 <input type="checkbox" id="stroke" onchange="onToggleStroke(this.checked)">
+                <input type="color" value="#FFFFFF" oninput="onChangeColor(value)">
             </div>
 
 
-            <input type="color" value="#FFFFFF" oninput="onChangeColor(value)">
-            <a href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+            <a class="download-btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
 
-        </div>
+        </section>
 
 
     </section>

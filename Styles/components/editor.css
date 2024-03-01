@@ -1,23 +1,31 @@
 canvas {
     box-shadow: 0 0 15px 4px;
     border: 2px solid lightblue;
+
 }
 
 
 
 .canvas-container {
-    grid-column-start: 2;
+    width: 600px;
+    height: 600px;
 }
 
 .editor-options {
+    display: grid;
+    grid-template-areas:
+        "text-input text-input "
+        "line-control up-down-keys "
+        "alignment-control alignment-control "
+        "stroke-control download-btn ";
     height: max-content;
     width: max-content;
     font-size: 2em;
     row-gap: 10px;
-    padding: 10px;
-    margin: 20px;
+    margin: 0;
     border-radius: 5%;
     box-shadow: 0 0 15px 4px;
+
 
     background-color: rgb(83, 83, 83);
 }
@@ -26,10 +34,29 @@ canvas {
 button {
 
     font-size: 0.7em;
-
 }
 
-.test{
-    width: 100px;
-    height: 100px;
+
+.text-input {
+    grid-area: text-input;
+}
+
+.line-control {
+    grid-area: line-control;
+}
+
+.up-down-keys {
+    grid-area: up-down-keys;
+}
+
+.alignment-control {
+    grid-area: alignment-control;
+}
+
+.stroke-control {
+    grid-area: stroke-control;
+}
+
+.download-btn {
+    grid-area: download-btn;
 }

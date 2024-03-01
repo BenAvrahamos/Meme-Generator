@@ -10,14 +10,37 @@ let gCtx
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    
+
     addListeners()
-    gElCanvas.addEventListener('click', onClick)
-    gElCanvas.addEventListener('click', onClick)
+
 
 
 
 }
+
+function addListeners() {
+    gElCanvas.addEventListener('click', onClick)
+    gElCanvas.addEventListener('click', onClick)
+    window.addEventListener('resize', () => {
+		resizeCanvas()
+		renderMeme(gMeme)
+	})
+    // gElCanvas.addEventListener('mousedown', onStartLine)
+    // gElCanvas.addEventListener('mousemove', onDrawLine)
+    // gElCanvas.addEventListener('mouseup', onEndLine)
+    // gElCanvas.addEventListener('touchstart', onStartLine)
+    // gElCanvas.addEventListener('touchmove', onDrawLine)
+    // gElCanvas.addEventListener('touchend', onEndLine)
+
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
+}
+
 
 
 function renderMeme(meme) {
@@ -30,7 +53,7 @@ function renderMeme(meme) {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         drawLines(lines, selectedLineIdx)
     }
-    
+
 }
 
 function onTxtInput(elTxt) {
@@ -48,7 +71,7 @@ function drawLine(line, indx,) {
     switch (line.alignment) {
         case 'center':
             txtPosX = gElCanvas.width / 2
-            
+
             align = 'center'
 
             break;
@@ -59,7 +82,7 @@ function drawLine(line, indx,) {
             break;
 
         case 'right':
-            txtPosX = gElCanvas.width / 1.2 
+            txtPosX = gElCanvas.width / 1.2
             align = 'right'
 
             break;
@@ -79,7 +102,7 @@ function drawLine(line, indx,) {
 
 
     gCtx.fillText(txt, txtPosX, line.posY)
-    
+
 
     if (stroke === true) {
 
@@ -113,8 +136,8 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
     gCtx.setLineDash([10])
 
     gCtx.strokeRect(x, y, textWidth, textHight)
-    setLineCoords(indx,x,y,textWidth, textHight)
-    
+    setLineCoords(indx, x, y, textWidth, textHight)
+
 
 }
 
@@ -169,14 +192,7 @@ function onAlignText(dir) {
     renderMeme(gMeme)
 }
 
-function addListeners() {
-    // gElCanvas.addEventListener('mousedown', onStartLine)
-    // gElCanvas.addEventListener('mousemove', onDrawLine)
-    // gElCanvas.addEventListener('mouseup', onEndLine)
-    // gElCanvas.addEventListener('touchstart', onStartLine)
-    // gElCanvas.addEventListener('touchmove', onDrawLine)
-    // gElCanvas.addEventListener('touchend', onEndLine)
-}
+
 
 function getEvPos(ev) {
     let pos = {
@@ -247,13 +263,13 @@ function updateSettings() {
 }
 
 
-function onMoveKeyUp(value){
+function onMoveKeyUp(value) {
 
     moveKeyUp(value)
     renderMeme(gMeme)
 }
 
-function onDeleteLine(){
+function onDeleteLine() {
     deleteLine()
 
     renderMeme(gMeme)

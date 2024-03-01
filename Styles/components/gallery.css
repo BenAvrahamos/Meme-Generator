@@ -13,6 +13,7 @@
 }
 
 .gallery-img{
+    width: 100%;
     align-self: center;
     box-shadow: 0 0 15px 4px;
     border: 2px solid lightblue;
