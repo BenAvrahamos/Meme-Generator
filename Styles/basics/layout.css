@@ -8,14 +8,9 @@
 
 /* Gallery */
 .gallery-img-container {
-    columns: 500px 4;
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px,1fr) ); */
-    place-content: center;
-    justify-items: center;
-
-
-
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px,500px));
+    justify-content: center;
 }
 
 .gallery-search-bar {
@@ -43,7 +38,6 @@
 
 .canvas-container {
     position: fixed;
-
 
 }
 

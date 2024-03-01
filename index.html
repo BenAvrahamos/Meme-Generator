@@ -19,8 +19,30 @@
 
     <main class="gallery">
         <section class="gallery-search-bar">
+
+
+            <div class="filter">
+                <input list="keywords" placeholder="Catagory" onchange="onFilterImgs(value)">
+
+                <datalist class="filter-datalist" id="keywords">
+                    <option value="presidents">
+                    <option value="awkward">
+                    <option value="dogs">
+                    <option value="funny">
+                    <option value="animals">
+                    <option value="cute">
+                    <option value="cat">
+                    <option value="kids">
+                    <option value="smart">
+                </datalist>
+                <button class="filter-clear-btn" onclick="onClearFilter()">Clear</button>
+                
+            </div>
+
+            
             <button class="flexible-btn" onclick="onRandomImg()">I'm Flexible</button>
-            <input type="text" name="search-bar" placeholder="Search a Catagory" id="">
+
+          
         </section>
 
         <section class="gallery-img-container">

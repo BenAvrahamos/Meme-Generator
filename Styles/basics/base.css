@@ -1,5 +1,6 @@
 body{
     background-color: gray;
+    min-width: 460px
 }
 
 html, body {
