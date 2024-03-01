@@ -10,7 +10,10 @@
     background-color: rgb(83, 83, 83);
     box-shadow: 0 0 1px 1px;
     border: 2px solid lightblue;
+
 }
+
+
 
 .gallery-img{
     width: 100%;
@@ -29,4 +32,12 @@
     background-color: rgb(67, 152, 173);
 
 
+}
+
+.filter-clear-btn{
+    height: 100%;
+}
+
+.filter input{
+    height: 84%;
 }
