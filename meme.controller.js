@@ -7,7 +7,6 @@ let gElCanvas
 let gCtx
 let gDownloadable = false
 
-
 const emojis  = {
     emojis: ['😁', '😊', '😂', '🤣', '❤', '😍', '😒', '👌', '😘', '💕', '👍', '😎', '😉', '🤞', '✌','🎂'],
     page: { idx: 0, containerSize: 4 }
@@ -33,7 +32,6 @@ function addListeners() {
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchend', onUp)
-
 }
 
 function onRenderEmojis(value = 0){
@@ -59,8 +57,6 @@ function onDrawEmoji(emoji){
     drawEmoji(emoji)
     updateSettings()
     renderMeme(gMeme)
-    
-    
 }
 
 function onDown(ev){
@@ -123,7 +119,6 @@ function renderMeme(meme) {
         elImg.onload = () => {        
             gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
             drawLines(lines, selectedLineIdx)}
-
     }
 
 }
@@ -150,9 +145,7 @@ function drawLine(line, indx,) {
     if (align === 'right') gCtx.direction = 'rtl'
     else gCtx.direction = 'ltr'
 
-
     gCtx.fillText(txt, line.posX, line.posY)
-
 
     if (stroke === true) {
 
@@ -166,7 +159,6 @@ function drawLine(line, indx,) {
     if (indx === gMeme.selectedLineIdx && !gDownloadable) {
         drawBorder(line.posX, line.posY, margin, txt, indx, align)
     }
-
 }
 
 function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
@@ -179,7 +171,6 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
     if (align === 'right') x = txtPosX - textWidth - textAspects.actualBoundingBoxRight
     else if (align === 'left') x = txtPosX
 
-
     gCtx.lineWidth = 2
     gCtx.strokeStyle = '#47526C'
     gCtx.setLineDash([10])
@@ -187,9 +178,7 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
     gCtx.strokeRect(x, y, textWidth, textHight)
     setLineCoords(indx, x, y, textWidth, textHight)
 
-
 }
-
 
 function downloadCanvas(elLink) {
     gDownloadable = true
@@ -245,8 +234,6 @@ function onAlignText(dir) {
     renderMeme(gMeme)
 }
 
-
-
 function getEvPos(ev) {
 	let pos = {
 		x: ev.offsetX,
@@ -263,11 +250,8 @@ function getEvPos(ev) {
 			x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
 			y: ev.pageY - ev.target.offsetTop - ev.target.clientTop -100,
 		}
-
 	}
-
 	return pos
-
 }
 
 
@@ -275,7 +259,6 @@ function switchSection() {
     const elGallery = document.querySelector('.gallery')
     const elEditor = document.querySelector('.editor')
     const elNavBtnTxt = document.querySelector('.nav-btn span')
-
 
     elGallery.classList.toggle('hide')
     elEditor.classList.toggle('hide')
@@ -290,7 +273,6 @@ function updateSettings() {
     const { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
     const elSettings = document.querySelector('.editor-options')
 
-
     elSettings.querySelector('input').value = txt
 
     if (stroke) elSettings.querySelector('input[type="checkbox"]').checked = true
@@ -299,7 +281,6 @@ function updateSettings() {
     elSettings.querySelector('input[type="color"]').value = color
 
 }
-
 
 function onMoveKeyUp(value) {
 

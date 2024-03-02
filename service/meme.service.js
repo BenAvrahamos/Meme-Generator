@@ -1,20 +1,5 @@
 'use strict'
 
-// const MEME_DB = 'memesDB'
-// const CANVAS_URL_DB = 'canvasUrlDB'
-
-// let savedMemes
-// let savedCanvases
-
-
-// if (!loadFromStorage(MEME_DB, savedMemes))  savedMemes = []
-// else savedMemes = loadFromStorage(MEME_DB, savedMemes)
-
-// if (!loadFromStorage(CANVAS_URL_DB, savedCanvases))  savedCanvases = []
-// else savedCanvases = loadFromStorage(CANVAS_URL_DB, savedCanvases)
-
-
-
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['presidents', 'awkward'] },
     { id: 2, url: 'img/2.jpg', keywords: ['dogs', 'funny', 'animals'] },
@@ -83,13 +68,8 @@ function getImgByIdx(idx = null) {
     }
 }
 
-
 function setLineTxt(elTxt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
-
-
-
-
 }
 
 function setMemeIsDrag(value) {
@@ -99,7 +79,6 @@ function setMemeIsDrag(value) {
 
 function setImg(id) {
     gMeme.selectedImgId = id
-
 }
 
 function changeFontSize(value = 0) {
@@ -110,7 +89,6 @@ function changeFontSize(value = 0) {
 function changeColor(value) {
     if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].color = value
-
     renderMeme(gMeme)
 }
 
@@ -119,20 +97,17 @@ function switchLine() {
     gMeme.selectedLineIdx += 1
     if (gMeme.selectedLineIdx > gMeme.lines.length - 1)
         gMeme.selectedLineIdx = 0
-
 }
 
 function switchWithClick(idx) {
     if (!gMeme.lines.length) return
 
     gMeme.selectedLineIdx = idx
-
 }
 
 function toggleStroke(value) {
     if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].stroke = value
-
 }
 
 function alignText(dir) {
@@ -144,10 +119,9 @@ function alignText(dir) {
             gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 2
 
             break;
+
         case 'left':
             gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 6
-
-
             break;
 
         case 'right':
@@ -161,7 +135,6 @@ function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].posX += dx
     gMeme.lines[gMeme.selectedLineIdx].posY += dy
 }
-
 
 function addLine(gElCanvas) {
 
@@ -195,9 +168,6 @@ function setLineCoords(indx, x, y, textWidth, textHight) {
 
     gMeme.lines[indx].borderEndX = x + textWidth
     gMeme.lines[indx].borderEndY = y + textHight
-
-
-
 }
 
 
@@ -212,14 +182,12 @@ function deleteLine() {
     gMeme.lines.splice(indx, 1)
 
     gMeme.selectedLineIdx = indx - 1
-
 }
 
 
 function filterImgs(category) {
 
     gImgFilter.filterBy.category = category
-
 }
 
 
@@ -229,20 +197,7 @@ function clearFilter() {
 
 function drawEmoji(emoji) {
     gMeme.lines[gMeme.selectedLineIdx].txt += emoji
-
-
 }
-
-// function saveCanvas(dataUrl) {
-
-//     savedMemes.push(gMeme)
-//     savedCanvases.push(dataUrl)
-
-
-//     saveToStorage(MEME_DB, savedMemes)
-//     saveToStorage(CAN   , savedCanvases)
-//     console.log(savedMemes);
-// }
 
 function resizeLineByCanvas(containerSize){
     gMeme.lines.forEach( line => line.size =  containerSize/10)

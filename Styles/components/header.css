@@ -7,9 +7,6 @@
     height: 10%;
 }
 
-
-
-
 .nav-btn {
     position: absolute;
     right: 0;
@@ -23,7 +20,6 @@
     border: none;
     box-shadow: 0 0 15px 4px;
 }
-
 
 .header h1 {
     font-size: 2em;

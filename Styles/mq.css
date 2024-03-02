@@ -22,7 +22,6 @@
     }
 }
 
-
 @media (max-width:850px) {
     .canvas-container {
         width: 59vw;
@@ -43,7 +42,7 @@
 @media (max-width:550px) {
     .editor-options {
         font-size: 2em;
-        height: 100vw;
+        height: 50%;
         grid-template-areas:
             "text-input text-input"
             "emojis-container emojis-container"
@@ -54,7 +53,7 @@
     }
 
     .canvas-container {
-        width: 50vw;
-        height: 50vw;
+        width: 325px;
+        height: 325px;
     }
 }
