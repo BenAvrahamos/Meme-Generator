@@ -7,32 +7,20 @@ canvas {
 
 
 .canvas-container {
-    width: 600px;
-    height: 600px;
+    width: 40vw;
+    height: 40vw;
 }
 
 .editor-options {
-    display: grid;
-    grid-template-areas:
-        "text-input text-input "
-        "line-control up-down-keys "
-        "alignment-control alignment-control "
-        "stroke-control download-btn ";
-    height: max-content;
-    width: max-content;
     font-size: 2em;
     row-gap: 10px;
     margin: 0;
-    border-radius: 5%;
     box-shadow: 0 0 15px 4px;
-
-
     background-color: rgb(83, 83, 83);
 }
 
 .editor-options input,
 button {
-
     font-size: 0.7em;
 }
 

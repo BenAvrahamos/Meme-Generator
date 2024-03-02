@@ -37,6 +37,7 @@ function addListeners() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
+    console.log();
 
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
