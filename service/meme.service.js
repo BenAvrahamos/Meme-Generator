@@ -31,22 +31,6 @@ var gMeme = {
     selectedImgId: null,
     selectedLineIdx: 0,
     lines: [{
-        txt: 'text',
-        size: 80,
-        color: '#FFFFFF',
-        stroke: false,
-
-        alignment: 'center',
-
-        posX: 300,
-        posY: 75,
-
-        borderStartX: null,
-        borderEndX: null,
-        borderStartY: null,
-        BorderEndY: null,
-
-        isDrag: false,
     }
     ]
 }

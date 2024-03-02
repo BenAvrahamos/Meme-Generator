@@ -149,7 +149,7 @@ function drawLine(line, indx,) {
 
     if (stroke === true) {
 
-        gCtx.lineWidth = 3
+        gCtx.lineWidth = gElCanvas.height / 200
         gCtx.strokeStyle = 'Black'
         gCtx.setLineDash([0])
 
