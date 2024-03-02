@@ -1,6 +1,6 @@
 .header {
     background-color: #20c7ddb6;
-  
+
     border: lightblue solid 2px;
     box-shadow: 0 0 15px 4px;
     margin-bottom: 10px;
@@ -25,7 +25,7 @@
 }
 
 
-.header h1{
+.header h1 {
     font-size: 2em;
     text-align: center;
 }

@@ -19,6 +19,15 @@ canvas {
     background-color: rgb(83, 83, 83);
 }
 
+.emojis-container{
+    display: flex;
+    justify-content: center;
+}
+
+.emoji{
+    width: 2em;
+}
+
 .editor-options input,
 button {
     font-size: 0.7em;

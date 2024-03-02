@@ -59,9 +59,19 @@
 
         <section class="editor-options">
 
-            <div class="text-input flex-column">
-                <label for="text-input">Enter Text:</label>
-                <input oninput="onTxtInput(value)" type="text" id="text-input">
+            <div class="text-input ">
+                <input oninput="onTxtInput(value)" placeholder="Text" type="text" id="text-input">
+
+                <div class="emojis-container">
+                    <button onclick="onRenderEmojis(-1)">&lt;-</button>
+    
+                    <div class="emojis">
+                        
+    
+                    </div>
+                   <button onclick="onRenderEmojis(1)">-></button>
+    
+                </div>
             </div>
 
             <div class="line-control flex-column">
@@ -85,6 +95,10 @@
                 <button onclick="onAlignText('center')">Center</button>
                 <button onclick="onAlignText('right')">Right</button>
             </div>
+
+
+
+
             
             <div class="stroke-control">
                 <label for="stroke">Stroke</label>

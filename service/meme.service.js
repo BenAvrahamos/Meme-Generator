@@ -227,6 +227,12 @@ function clearFilter() {
     gImgFilter.filterBy.category = ''
 }
 
+function drawEmoji(emoji) {
+    gMeme.lines[gMeme.selectedLineIdx].txt += emoji
+
+
+}
+
 // function saveCanvas(dataUrl) {
 
 //     savedMemes.push(gMeme)

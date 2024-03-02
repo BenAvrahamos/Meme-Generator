@@ -7,13 +7,17 @@ let gStartPos
 let gElCanvas
 let gCtx
 
+const emojis  = {
+    emojis: ['😁', '😊', '😂', '🤣', '❤', '😍', '😒', '👌', '😘', '💕', '👍', '😎', '😉', '🤞', '✌','🎂'],
+    page: { idx: 0, containerSize: 4 }
+}
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     renderGallery()
-
     addListeners()
+    onRenderEmojis()
 
 }
 
@@ -30,6 +34,32 @@ function addListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 
 }
+
+function onRenderEmojis(value = 0){
+    emojis.page.idx +=value
+    if (emojis.page.idx === 4) emojis.page.idx = 0
+    if (emojis.page.idx === -1) emojis.page.idx = 3
+    
+    const elEmojis = document.querySelector('.emojis')
+    const startIdx = emojis.page.idx * emojis.page.containerSize
+
+    const slicedEmojis = emojis.emojis.slice(startIdx,startIdx +emojis.page.containerSize)
+
+    console.log(slicedEmojis);
+
+    const strHTMLs = slicedEmojis.map(emoji =>
+        `<button class="emoji" onclick="onDrawEmoji('${emoji}')">${emoji}</button>`)
+
+    elEmojis.innerHTML = strHTMLs.join('')
+}
+
+function onDrawEmoji(emoji){
+    const gMeme = getGMeme()
+    drawEmoji(emoji)
+    renderMeme(gMeme)
+    
+}
+
 
 function onDown(ev){
     const gMeme = getGMeme()
@@ -72,7 +102,7 @@ function onUp(){
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
-    console.log();
+
 
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
@@ -87,8 +117,10 @@ function renderMeme(meme) {
         const imageIdx = selectedImgId - 1
         const elImg = new Image()
         elImg.src = getImgByIdx(imageIdx)
-        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawLines(lines, selectedLineIdx)
+        elImg.onload = () => {        
+            gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+            drawLines(lines, selectedLineIdx)}
+
     }
 
 }
