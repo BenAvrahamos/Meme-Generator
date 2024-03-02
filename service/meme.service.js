@@ -102,7 +102,7 @@ function setImg(id) {
 
 }
 
-function changeFontSize(value) {
+function changeFontSize(value = 0) {
     if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].size += value
 }
@@ -170,7 +170,7 @@ function addLine(gElCanvas) {
     gMeme.lines.push(
         {
             txt: 'text',
-            size: 80,
+            size: gElCanvas.width / 10,
             color: '#FFFFFF',
             stroke: false,
 
@@ -244,3 +244,6 @@ function drawEmoji(emoji) {
 //     console.log(savedMemes);
 // }
 
+function resizeLineByCanvas(containerSize){
+    gMeme.lines[gMeme.selectedLineIdx].size = containerSize/10
+}

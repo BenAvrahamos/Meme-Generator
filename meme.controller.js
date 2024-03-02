@@ -106,6 +106,9 @@ function resizeCanvas() {
 
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
+
+    resizeLineByCanvas(gElCanvas.width)
+
 }
 
 
@@ -137,7 +140,6 @@ function onTxtInput(elTxt) {
 
 
 function drawLine(line, indx,) {
-    let txtPosX
     let align =line.alignment
     const gMeme = getGMeme()
 
