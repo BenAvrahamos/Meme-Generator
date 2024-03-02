@@ -80,32 +80,37 @@
                 </div>
             </div>
 
-
-
-
-
             <div class="alignment-control">
                 <button onclick="onAlignText('left')">Left</button>
                 <button onclick="onAlignText('center')">Center</button>
                 <button onclick="onAlignText('right')">Right</button>
             </div>
-
+            
             <div class="stroke-control">
                 <label for="stroke">Stroke</label>
                 <input type="checkbox" id="stroke" onchange="onToggleStroke(this.checked)">
                 <input type="color" value="#FFFFFF" oninput="onChangeColor(value)">
+                <!-- <button class="save-btn" onclick="onSaveCanvas()">Save</button> -->
             </div>
-
-
+            
+            
             <a class="download-btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-
+            
         </section>
+        
 
+    </section>
+
+    <section class="saved-container hide">
+        <div class="saved-img"></div>
+        <button>Load Meme</button>
+        <button>Delete Meme</button>
 
     </section>
 
 </body>
 <script defer src="meme.utils.js"></script>
+<script defer src="service/meme.storage.service.js"></script>
 <script defer src="service/meme.service.js"></script>
 <script defer src="meme.controller.js"></script>
 <script defer src="gallery.controller.js"></script>

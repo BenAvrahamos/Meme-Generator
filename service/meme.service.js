@@ -1,5 +1,20 @@
 'use strict'
 
+// const MEME_DB = 'memesDB'
+// const CANVAS_URL_DB = 'canvasUrlDB'
+
+// let savedMemes
+// let savedCanvases
+
+
+// if (!loadFromStorage(MEME_DB, savedMemes))  savedMemes = []
+// else savedMemes = loadFromStorage(MEME_DB, savedMemes)
+
+// if (!loadFromStorage(CANVAS_URL_DB, savedCanvases))  savedCanvases = []
+// else savedCanvases = loadFromStorage(CANVAS_URL_DB, savedCanvases)
+
+
+
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['presidents', 'awkward'] },
     { id: 2, url: 'img/2.jpg', keywords: ['dogs', 'funny', 'animals'] },
@@ -45,9 +60,12 @@ var gMeme = {
         borderEndX: null,
         borderStartY: null,
         BorderEndY: null,
+
+        isDrag: false,
     }
     ]
 }
+
 
 function getImg() {
     if (!gImgFilter.filterBy.category) return gImgs
@@ -73,6 +91,11 @@ function setLineTxt(elTxt) {
 
 
 }
+
+function setMemeIsDrag(value) {
+    gMeme.lines[gMeme.selectedLineIdx].isDrag = value
+}
+
 
 function setImg(id) {
     gMeme.selectedImgId = id
@@ -115,6 +138,28 @@ function toggleStroke(value) {
 function alignText(dir) {
     if (!gMeme.lines.length) return
     gMeme.lines[gMeme.selectedLineIdx].alignment = dir
+
+    switch (dir) {
+        case 'center':
+            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 2
+
+            break;
+        case 'left':
+            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 6
+
+
+            break;
+
+        case 'right':
+            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 1.2
+
+            break;
+    }
+}
+
+function moveLine(dx, dy) {
+    gMeme.lines[gMeme.selectedLineIdx].posX += dx
+    gMeme.lines[gMeme.selectedLineIdx].posY += dy
 }
 
 
@@ -178,7 +223,18 @@ function filterImgs(category) {
 }
 
 
-function clearFilter(){
+function clearFilter() {
     gImgFilter.filterBy.category = ''
 }
+
+// function saveCanvas(dataUrl) {
+
+//     savedMemes.push(gMeme)
+//     savedCanvases.push(dataUrl)
+
+
+//     saveToStorage(MEME_DB, savedMemes)
+//     saveToStorage(CAN   , savedCanvases)
+//     console.log(savedMemes);
+// }
 

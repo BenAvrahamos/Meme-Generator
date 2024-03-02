@@ -2,10 +2,11 @@
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
-
+let gStartPos
 
 let gElCanvas
 let gCtx
+
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
@@ -14,24 +15,58 @@ function onInit() {
 
     addListeners()
 
-
-
-
 }
 
 function addListeners() {
-    gElCanvas.addEventListener('click', onClick)
-    gElCanvas.addEventListener('click', onClick)
     window.addEventListener('resize', () => {
 		resizeCanvas()
 		renderMeme(gMeme)
 	})
-    // gElCanvas.addEventListener('mousedown', onStartLine)
-    // gElCanvas.addEventListener('mousemove', onDrawLine)
-    // gElCanvas.addEventListener('mouseup', onEndLine)
-    // gElCanvas.addEventListener('touchstart', onStartLine)
-    // gElCanvas.addEventListener('touchmove', onDrawLine)
-    // gElCanvas.addEventListener('touchend', onEndLine)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mouseup', onUp)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchend', onUp)
+
+}
+
+function onDown(ev){
+    const gMeme = getGMeme()
+    const clickPos = getEvPos(ev)
+    gMeme.lines.forEach((line, idx) => {
+        const { borderStartX, borderStartY, borderEndX, borderEndY } = line
+
+
+        if (clickPos.x >= borderStartX &&
+            clickPos.x <= borderEndX &&
+            clickPos.y >= borderStartY &&
+            clickPos.y <= borderEndY) {
+                gStartPos = clickPos
+            switchWithClick(idx)
+            renderMeme(gMeme)
+            updateSettings()
+            setMemeIsDrag(true)
+        }
+    });
+
+}
+
+function onMove(ev){
+    const gMeme = getGMeme()
+    if (!gMeme.lines[gMeme.selectedLineIdx].isDrag) return
+    
+    const dragPos = getEvPos(ev)
+    const dx = dragPos.x - gStartPos.x
+	const dy = dragPos.y - gStartPos.y
+    gStartPos = dragPos
+    renderMeme(gMeme)
+    moveLine(dx, dy)
+}
+
+function onUp(){
+    setMemeIsDrag(false)
+    gStartPos = ''
 
 }
 
@@ -64,31 +99,15 @@ function onTxtInput(elTxt) {
     renderMeme(gMeme)
 }
 
+
+
+
+
+
 function drawLine(line, indx,) {
     let txtPosX
-    let align
+    let align =line.alignment
     const gMeme = getGMeme()
-
-
-    switch (line.alignment) {
-        case 'center':
-            txtPosX = gElCanvas.width / 2
-
-            align = 'center'
-
-            break;
-        case 'left':
-            txtPosX = gElCanvas.width / 6
-            align = 'left'
-
-            break;
-
-        case 'right':
-            txtPosX = gElCanvas.width / 1.2
-            align = 'right'
-
-            break;
-    }
 
     const margin = indx * gElCanvas.height / 8
 
@@ -103,7 +122,7 @@ function drawLine(line, indx,) {
     else gCtx.direction = 'ltr'
 
 
-    gCtx.fillText(txt, txtPosX, line.posY)
+    gCtx.fillText(txt, line.posX, line.posY)
 
 
     if (stroke === true) {
@@ -112,11 +131,11 @@ function drawLine(line, indx,) {
         gCtx.strokeStyle = 'Black'
         gCtx.setLineDash([0])
 
-        gCtx.strokeText(txt, txtPosX, line.posY)
+        gCtx.strokeText(txt, line.posX, line.posY)
     }
 
     if (indx === gMeme.selectedLineIdx) {
-        drawBorder(txtPosX, line.posY, margin, txt, indx, align)
+        drawBorder(line.posX, line.posY, margin, txt, indx, align)
     }
 
 }
@@ -197,43 +216,28 @@ function onAlignText(dir) {
 
 
 function getEvPos(ev) {
-    let pos = {
-        x: ev.offsetX,
-        y: ev.offsetY,
-    }
-    if (TOUCH_EVS.includes(ev.type)) {
-        // Gets the first touch point
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        // Calc the right pos according to the touch screen
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-        }
-    }
-    return pos
+	let pos = {
+		x: ev.offsetX,
+		y: ev.offsetY,
+	}
+
+	if (TOUCH_EVS.includes(ev.type)) {
+		
+		ev.preventDefault()         // Prevent triggering the mouse events
+		ev = ev.changedTouches[0]   // Gets the first touch point
+
+		// Calc pos according to the touch screen
+		pos = {
+			x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+			y: ev.pageY - ev.target.offsetTop - ev.target.clientTop -100,
+		}
+
+	}
+
+	return pos
+
 }
 
-function onClick(ev) {
-    const gMeme = getGMeme()
-    const clickPos = getEvPos(ev)
-    gMeme.lines.forEach((line, idx) => {
-        const { borderStartX, borderStartY, borderEndX, borderEndY } = line
-
-
-
-
-
-        if (clickPos.x >= borderStartX &&
-            clickPos.x <= borderEndX &&
-            clickPos.y >= borderStartY &&
-            clickPos.y <= borderEndY) {
-            switchWithClick(idx)
-            renderMeme(gMeme)
-            updateSettings()
-        }
-    });
-}
 
 function switchSection() {
     const elGallery = document.querySelector('.gallery')
@@ -278,3 +282,10 @@ function onDeleteLine() {
 }
 
 
+// function onSaveCanvas(){
+//     var image = new Image()
+//     image.src =gElCanvas.toDataURL()
+//     saveCanvas(image)
+     
+
+// }
