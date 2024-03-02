@@ -12,48 +12,23 @@ canvas {
 }
 
 .editor-options {
-    font-size: 2em;
-    row-gap: 10px;
+    font-size: 1.5em;
     margin: 0;
     box-shadow: 0 0 15px 4px;
     background-color: rgb(83, 83, 83);
+    height: 90%;
 }
 
-.emojis-container{
+.editor-options button, input {
+    font-size: 1em;
+}
+
+.emojis-container {
     display: flex;
     justify-content: center;
 }
 
-.emoji{
+.emoji {
     width: 2em;
 }
 
-.editor-options input,
-button {
-    font-size: 0.7em;
-}
-
-
-.text-input {
-    grid-area: text-input;
-}
-
-.line-control {
-    grid-area: line-control;
-}
-
-.up-down-keys {
-    grid-area: up-down-keys;
-}
-
-.alignment-control {
-    grid-area: alignment-control;
-}
-
-.stroke-control {
-    grid-area: stroke-control;
-}
-
-.download-btn {
-    grid-area: download-btn;
-}

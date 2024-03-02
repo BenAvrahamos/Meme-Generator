@@ -245,5 +245,5 @@ function drawEmoji(emoji) {
 // }
 
 function resizeLineByCanvas(containerSize){
-    gMeme.lines[gMeme.selectedLineIdx].size = containerSize/10
+    gMeme.lines.forEach( line => line.size =  containerSize/10)
 }

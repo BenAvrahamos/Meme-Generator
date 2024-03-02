@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="Styles/styles.css">
+    <script src="https://kit.fontawesome.com/d7527b64d0.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="onInit()">
@@ -36,13 +37,13 @@
                     <option value="smart">
                 </datalist>
                 <button class="filter-clear-btn" onclick="onClearFilter()">Clear</button>
-                
+
             </div>
 
-            
+
             <button class="flexible-btn" onclick="onRandomImg()">I'm Flexible</button>
 
-          
+
         </section>
 
         <section class="gallery-img-container">
@@ -59,59 +60,63 @@
 
         <section class="editor-options">
 
-            <div class="text-input ">
+            <div class="text-input  ">
                 <input oninput="onTxtInput(value)" placeholder="Text" type="text" id="text-input">
-
-                <div class="emojis-container">
-                    <button onclick="onRenderEmojis(-1)">&lt;-</button>
-    
-                    <div class="emojis">
-                        
-    
-                    </div>
-                   <button onclick="onRenderEmojis(1)">-></button>
-    
-                </div>
             </div>
 
-            <div class="line-control flex-column">
-                <button onclick="onAddLine()">Add Line</button>
-                <button onclick="onSwitchLine()">Next Line</button>
-                <button onclick="onDeleteLine()">Delete Line</button>
+            <div class="emojis-container">
+                <button onclick="onRenderEmojis(-1)">&lt;-</button>
+
+                <div class="emojis"></div>
+                <button onclick="onRenderEmojis(1)">-></button>
+
             </div>
+
+            <div class="line-control">
+                <button title="Add Line" class="fa-solid fa-plus" onclick="onAddLine()"></button>
+                <button title="Next Line" onclick="onSwitchLine()" class="fa-solid fa-forward"></button>
+                <button title="Delete Line" class="fa-solid fa-trash" onclick="onDeleteLine()"></button>
+            </div>
+
+
 
             <div class="up-down-keys">
-                <button onclick="onMoveKeyUp(-10)">^</button>
-                <button onclick="onMoveKeyUp(10)">v</button>
+                <button title="Move Line Up" class="fa-solid fa-arrow-up" onclick="onMoveKeyUp(-10)"></button>
+                <button title="Move Line Down" class="fa-solid fa-arrow-down" onclick="onMoveKeyUp(10)"></button>
+            </div>
 
-                <div class="font-control">
-                    <button onclick="onChangeFontSize(+3)">+</button>
-                    <button onclick="onChangeFontSize(-3)">-</button>
-                </div>
+            <div class="font-control">
+                <button title="Increase Size" class="fa-solid fa-font " onclick="onChangeFontSize(+3)">+</button>
+                <button title="Decrease Size" class="fa-solid fa-font" onclick="onChangeFontSize(-3)">-</button>
             </div>
 
             <div class="alignment-control">
-                <button onclick="onAlignText('left')">Left</button>
-                <button onclick="onAlignText('center')">Center</button>
-                <button onclick="onAlignText('right')">Right</button>
+                <button title="Align Left" class="fa-solid fa-align-left" onclick="onAlignText('left')"></button>
+                <button title="Align Center" class="fa-solid fa-align-center" onclick="onAlignText('center')"></button>
+                <button title="Align Right" class="fa-solid fa-align-right" onclick="onAlignText('right')"></button>
             </div>
 
 
+            <button class="stroke-control">
+                <input title="Stroke" type="checkbox" id="stroke" onchange="onToggleStroke(this.checked)">
+                <label title="Stroke" class="fa-solid fa-pen" for="stroke"></label>
+            </button>
 
 
-            
-            <div class="stroke-control">
-                <label for="stroke">Stroke</label>
-                <input type="checkbox" id="stroke" onchange="onToggleStroke(this.checked)">
-                <input type="color" value="#FFFFFF" oninput="onChangeColor(value)">
-                <!-- <button class="save-btn" onclick="onSaveCanvas()">Save</button> -->
-            </div>
-            
-            
-            <a class="download-btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-            
+            <button class="fill-line">
+                <input title="Fill Color" type="color" value="#FFFFFF" oninput="onChangeColor(value)">
+                <label title="Fill Color" class="fa-solid fa-fill-drip" for="color"></label>
+                
+                <button class="download-btn " href="#" onclick="downloadCanvas(this)"
+                download="file-name">Download</button>
+            </button>
+
+
+
+
+
         </section>
-        
+
 
     </section>
 

@@ -3,9 +3,10 @@
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 let gStartPos
-
 let gElCanvas
 let gCtx
+let gDownloadable = false
+
 
 const emojis  = {
     emojis: ['😁', '😊', '😂', '🤣', '❤', '😍', '😒', '👌', '😘', '💕', '👍', '😎', '😉', '🤞', '✌','🎂'],
@@ -56,10 +57,11 @@ function onRenderEmojis(value = 0){
 function onDrawEmoji(emoji){
     const gMeme = getGMeme()
     drawEmoji(emoji)
+    updateSettings()
     renderMeme(gMeme)
     
+    
 }
-
 
 function onDown(ev){
     const gMeme = getGMeme()
@@ -111,8 +113,6 @@ function resizeCanvas() {
 
 }
 
-
-
 function renderMeme(meme) {
 
     const { selectedImgId, selectedLineIdx, lines } = meme
@@ -133,11 +133,6 @@ function onTxtInput(elTxt) {
     const gMeme = getGMeme()
     renderMeme(gMeme)
 }
-
-
-
-
-
 
 function drawLine(line, indx,) {
     let align =line.alignment
@@ -168,12 +163,11 @@ function drawLine(line, indx,) {
         gCtx.strokeText(txt, line.posX, line.posY)
     }
 
-    if (indx === gMeme.selectedLineIdx) {
+    if (indx === gMeme.selectedLineIdx && !gDownloadable) {
         drawBorder(line.posX, line.posY, margin, txt, indx, align)
     }
 
 }
-
 
 function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
     let textAspects = gCtx.measureText(txt)
@@ -198,9 +192,13 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
 
 
 function downloadCanvas(elLink) {
+    gDownloadable = true
+    renderMeme(gMeme)
     const dataUrl = gElCanvas.toDataURL()
-    elLink.download = 'my-img'
+    elLink.download = 'my-meme'
     elLink.href = dataUrl
+    gDownloadable = false
+    renderMeme(gMeme)
 }
 
 function onChangeFontSize(value) {
@@ -315,11 +313,3 @@ function onDeleteLine() {
     renderMeme(gMeme)
 }
 
-
-// function onSaveCanvas(){
-//     var image = new Image()
-//     image.src =gElCanvas.toDataURL()
-//     saveCanvas(image)
-     
-
-// }

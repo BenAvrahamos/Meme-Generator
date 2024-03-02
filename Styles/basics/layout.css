@@ -36,13 +36,53 @@
     align-items: center;
     display: grid;
     grid-template-areas:
-    "text-input"
-    "line-control"
-    "up-down-keys"
-    "alignment-control"
-    "stroke-control"
-    "download-btn";
+    "text-input text-input"
+    "emojis-container emojis-container"
+    "alignment-control line-control"
+    "up-down-keys font-control"
+    "stroke-control fill-line";
+ 
+    
     height: 100%;
     width: max-content;
+
+}
+
+
+
+
+
+.text-input {
+    grid-area: text-input;
+}
+
+.line-control {
+    grid-area: line-control;
+}
+
+.up-down-keys {
+    grid-area: up-down-keys;
+}
+
+.font-control{
+    grid-area: font-control;
+}
+
+.alignment-control {
+    grid-area: alignment-control;
+}
+
+.stroke-control {
+    grid-area: stroke-control;
+}
+
+
+.fill {
+    grid-area: fill-line;
+}
+
+.emojis-container{
+
+    grid-area: emojis-container;
 
 }
