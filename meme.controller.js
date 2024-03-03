@@ -59,7 +59,7 @@ function onDrawEmoji(emoji) {
 }
 
 function onDown(ev) {
- 
+
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
         const { borderStartX, borderStartY, borderEndX, borderEndY } = line
@@ -107,32 +107,27 @@ function resizeCanvas() {
 }
 
 function renderMeme() {
-
-
     const { selectedImgId, selectedLineIdx, lines } = getGMeme()
-    if (selectedImgId !== null) {
-        const imageIdx = selectedImgId - 1
-        const elImg = new Image()
-        elImg.src = getImgByIdx(imageIdx)
-        elImg.onload = () => {
-            gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-            drawLines(lines, selectedLineIdx)
-        }
-    }
 
+    const imageIdx = selectedImgId - 1
+    const elImg = new Image()
+    elImg.src = getImgByIdx(imageIdx)
+    elImg.onload = () => {
+        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+        drawLines(lines, selectedLineIdx)
+    }
 }
 
 function onTxtInput(elTxt) {
     if (!gMeme.lines.length) addLine(gElCanvas)
     setLineTxt(elTxt)
-
     renderMeme()
 }
 
 function drawLine(line, indx,) {
     const gMeme = getGMeme()
-    
-    
+
+
     const { txt, size, color, stroke, posX, posY, alignment } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
@@ -155,7 +150,8 @@ function drawLine(line, indx,) {
         gCtx.strokeText(txt, line.posX, line.posY)
     }
 
-    if (indx === gMeme.selectedLineIdx && !gDownloadable) {
+
+    if  (!gDownloadable) {
         drawBorder(line.posX, line.posY, txt, indx, line.alignment)
     }
 }
@@ -179,15 +175,22 @@ function drawBorder(txtPosX, txtPosY, txt, indx, align) {
     setLineCoords(indx, x, y, textWidth, textHight)
 }
 
-function downloadCanvas(elLink) {
-    gDownloadable = true
-    renderMeme(gMeme)
-    const dataUrl = gElCanvas.toDataURL()
-    elLink.download = 'my-meme'
-    elLink.href = dataUrl
-    gDownloadable = false
-    renderMeme(gMeme)
+function onDownloadCanvas() {
+    gDownloadable = !gDownloadable
+    renderMeme()
+    setTimeout(() => downloadCanvas(), 500)
 }
+
+function downloadCanvas() {
+    const dataUrl = gElCanvas.toDataURL()
+    const elLink = document.createElement('a')
+    elLink.download = 'my-img'
+    elLink.href = dataUrl
+    elLink.click()
+        gDownloadable = !gDownloadable
+        renderMeme()
+}
+
 
 function onChangeFontSize(value) {
     const gMeme = getGMeme()
@@ -221,7 +224,7 @@ function onAddLine() {
 }
 
 function onToggleStroke(value) {
-if (!gMeme.lines.length) return
+    if (!gMeme.lines.length) return
     toggleStroke(value)
     renderMeme()
 }
@@ -268,6 +271,7 @@ function switchSection() {
 function updateSettings() {
     const gMeme = getGMeme()
     const elSettings = document.querySelector('.editor-options')
+
     if (!gMeme.lines.length) {
         elSettings.querySelector('input').value = ''
         return

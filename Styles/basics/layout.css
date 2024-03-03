@@ -39,7 +39,8 @@
         "emojis-container emojis-container"
         "alignment-control line-control"
         "up-down-keys font-control"
-        "stroke-control fill-line";
+        "stroke-control  fill-line"
+        "download-btn download-btn";
     height: 100%;
     width: 28vw;
 }
@@ -76,4 +77,9 @@
 .emojis-container {
 
     grid-area: emojis-container;
+}
+
+.download-btn{
+    justify-self: center;
+    grid-area: download-btn;
 }

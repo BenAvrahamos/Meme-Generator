@@ -185,7 +185,7 @@ function deleteLine() {
 
     const indx = gMeme.selectedLineIdx
     gMeme.lines.splice(indx, 1)
-
+    if (indx === -1) gMeme.selectedLineIdx = 1 
     gMeme.selectedLineIdx = indx - 1
     updateSettings()
 }
