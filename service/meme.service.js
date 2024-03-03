@@ -126,11 +126,11 @@ function alignText(dir) {
             break;
 
         case 'left':
-            getSelectedLine().posX = gElCanvas.width / 6
+            getSelectedLine().posX = gElCanvas.width / 20
             break;
 
         case 'right':
-            getSelectedLine().posX = gElCanvas.width / 1.2
+            getSelectedLine().posX = gElCanvas.width / 1.05
 
             break;
     }

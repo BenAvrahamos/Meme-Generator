@@ -1,9 +1,14 @@
 body{
   background: linear-gradient(to left, #20c7ddb6 ,rgba(255, 0, 0, 0.356), rgba(0, 128, 0, 0.596));
-    min-width: 460px
+    min-width: 460px;
+    
 }
 
 html, body {
   height: 100%;
   margin: 0;
+}
+
+button, img, input[type=color], input[type=checkbox]{
+  cursor: pointer;
 }

@@ -27,7 +27,10 @@ function addListeners() {
         renderMeme()
     })
     gElCanvas.addEventListener('mousedown', onDown)
-    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousemove', function (ev) {
+        onMove(ev)
+        onHover(ev)
+    })
     gElCanvas.addEventListener('mouseup', onUp)
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchmove', onMove)
@@ -51,9 +54,33 @@ function onRenderEmojis(value = 0) {
 }
 
 function onDrawEmoji(emoji) {
+
     drawEmoji(emoji)
     updateSettings()
     renderMeme()
+}
+
+function onHover(ev) {
+    const hoverPose = getEvPos(ev)
+    let isHover = false
+
+
+    gMeme.lines.forEach((line) => {
+        const { borderStartX, borderStartY, borderEndX, borderEndY } = line
+
+
+        if (hoverPose.x >= borderStartX &&
+            hoverPose.x <= borderEndX &&
+            hoverPose.y >= borderStartY &&
+            hoverPose.y <= borderEndY
+            ) isHover = true 
+
+        if (isHover) {
+            document.body.style.cursor = 'move'
+        } else {
+            document.body.style.cursor = 'default'
+        }
+    });
 }
 
 function onDown(ev) {
@@ -76,6 +103,8 @@ function onDown(ev) {
     });
 }
 
+
+
 function onMove(ev) {
     if (!gMeme.lines.length) return
     if (!gMeme.lines[gMeme.selectedLineIdx].isDrag) return
@@ -86,11 +115,13 @@ function onMove(ev) {
     gStartPos = dragPos
     renderMeme()
     moveLine(dx, dy)
+    document.body.style.cursor = 'grabbing'
 }
 
 function onUp() {
     setMemeIsDrag(false)
     gStartPos = ''
+    document.body.style.cursor = 'default'
 
 }
 
@@ -274,8 +305,7 @@ function updateSettings() {
         elSettings.querySelector('input').value = ''
         return
     }
-    
-     console.log(gMeme.selectedLineIdx);
+
     let { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
 
     if (txt === 'text') txt = null
@@ -293,6 +323,7 @@ function updateSettings() {
 function onMoveKeyUp(value) {
     moveKeyUp(value)
     renderMeme(gMeme)
+
 }
 
 function onDeleteLine() {
