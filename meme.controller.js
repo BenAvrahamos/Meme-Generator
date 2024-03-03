@@ -18,7 +18,6 @@ function onInit() {
     renderGallery()
     addListeners()
     onRenderEmojis()
-
 }
 
 function addListeners() {
@@ -77,7 +76,6 @@ function onDown(ev){
             setMemeIsDrag(true)
         }
     });
-
 }
 
 function onMove(ev){
@@ -101,12 +99,10 @@ function onUp(){
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
 
-
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
 
     resizeLineByCanvas(gElCanvas.width)
-
 }
 
 function renderMeme(meme) {
@@ -130,19 +126,17 @@ function onTxtInput(elTxt) {
 }
 
 function drawLine(line, indx,) {
-    let align =line.alignment
     const gMeme = getGMeme()
-
     const margin = indx * gElCanvas.height / 8
 
     const { txt, size, color, stroke } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
 
-    gCtx.textAlign = align
+    gCtx.textAlign = line.alignment
     gCtx.textBaseline = 'middle'
 
-    if (align === 'right') gCtx.direction = 'rtl'
+    if (line.alignment === 'right') gCtx.direction = 'rtl'
     else gCtx.direction = 'ltr'
 
     gCtx.fillText(txt, line.posX, line.posY)
@@ -157,11 +151,11 @@ function drawLine(line, indx,) {
     }
 
     if (indx === gMeme.selectedLineIdx && !gDownloadable) {
-        drawBorder(line.posX, line.posY, margin, txt, indx, align)
+        drawBorder(line.posX, line.posY,txt, indx, line.alignment)
     }
 }
 
-function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
+function drawBorder(txtPosX, txtPosY, txt, indx, align) {
     let textAspects = gCtx.measureText(txt)
     let textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
     let textWidth = textAspects.width
@@ -177,7 +171,6 @@ function drawBorder(txtPosX, txtPosY, margin, txt, indx, align) {
 
     gCtx.strokeRect(x, y, textWidth, textHight)
     setLineCoords(indx, x, y, textWidth, textHight)
-
 }
 
 function downloadCanvas(elLink) {
@@ -242,10 +235,10 @@ function getEvPos(ev) {
 
 	if (TOUCH_EVS.includes(ev.type)) {
 		
-		ev.preventDefault()         // Prevent triggering the mouse events
-		ev = ev.changedTouches[0]   // Gets the first touch point
+		ev.preventDefault()        
+		ev = ev.changedTouches[0]   
 
-		// Calc pos according to the touch screen
+
 		pos = {
 			x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
 			y: ev.pageY - ev.target.offsetTop - ev.target.clientTop -100,
@@ -283,14 +276,12 @@ function updateSettings() {
 }
 
 function onMoveKeyUp(value) {
-
     moveKeyUp(value)
     renderMeme(gMeme)
 }
 
 function onDeleteLine() {
     deleteLine()
-
     renderMeme(gMeme)
 }
 

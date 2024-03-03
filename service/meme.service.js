@@ -47,17 +47,22 @@ function getGMeme() {
 }
 
 function getImgByIdx(idx = null) {
-    if (idx !== null) {
+    if (idx !== -1) {
         return gImgs[idx].url
     }
 }
 
+function getSelectedLine(){
+    return gMeme.lines[gMeme.selectedLineIdx]
+}
+
+
 function setLineTxt(elTxt) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
+    getSelectedLine().txt = elTxt
 }
 
 function setMemeIsDrag(value) {
-    gMeme.lines[gMeme.selectedLineIdx].isDrag = value
+    getSelectedLine().isDrag = value
 }
 
 
@@ -67,12 +72,12 @@ function setImg(id) {
 
 function changeFontSize(value = 0) {
     if (!gMeme.lines.length) return
-    gMeme.lines[gMeme.selectedLineIdx].size += value
+    getSelectedLine().size += value
 }
 
 function changeColor(value) {
     if (!gMeme.lines.length) return
-    gMeme.lines[gMeme.selectedLineIdx].color = value
+    getSelectedLine().color = value
     renderMeme(gMeme)
 }
 
@@ -91,33 +96,33 @@ function switchWithClick(idx) {
 
 function toggleStroke(value) {
     if (!gMeme.lines.length) return
-    gMeme.lines[gMeme.selectedLineIdx].stroke = value
+    getSelectedLine().stroke = value
 }
 
 function alignText(dir) {
     if (!gMeme.lines.length) return
-    gMeme.lines[gMeme.selectedLineIdx].alignment = dir
+    getSelectedLine().alignment = dir
 
     switch (dir) {
         case 'center':
-            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 2
+            getSelectedLine().posX = gElCanvas.width / 2
 
             break;
 
         case 'left':
-            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 6
+            getSelectedLine().posX = gElCanvas.width / 6
             break;
 
         case 'right':
-            gMeme.lines[gMeme.selectedLineIdx].posX = gElCanvas.width / 1.2
+            getSelectedLine().posX = gElCanvas.width / 1.2
 
             break;
     }
 }
 
 function moveLine(dx, dy) {
-    gMeme.lines[gMeme.selectedLineIdx].posX += dx
-    gMeme.lines[gMeme.selectedLineIdx].posY += dy
+    getSelectedLine().posX += dx
+    getSelectedLine().posY += dy
 }
 
 function addLine(gElCanvas) {
@@ -157,7 +162,7 @@ function setLineCoords(indx, x, y, textWidth, textHight) {
 
 function moveKeyUp(value) {
     if (!gMeme.lines.length) return
-    gMeme.lines[gMeme.selectedLineIdx].posY += value
+    getSelectedLine().posY += value
 }
 
 function deleteLine() {
@@ -180,7 +185,7 @@ function clearFilter() {
 }
 
 function drawEmoji(emoji) {
-    gMeme.lines[gMeme.selectedLineIdx].txt += emoji
+    getSelectedLine().txt += emoji
 }
 
 function resizeLineByCanvas(containerSize){

@@ -1,4 +1,4 @@
-@media (max-width:1210px) {
+/* @media (max-width:1210px) {
     .header h1 {
         font-size: 1.5em;
         width: 50%;
@@ -20,28 +20,30 @@
         font-size: 1em;
 
     }
-}
+} */
 
-@media (max-width:850px) {
+@media (max-width:1030px) {
     .canvas-container {
-        width: 59vw;
-        height: 59vw;
+        width: 420px;
+        height: 420px;
     }
 
     .editor-options {
+        font-size: 1.8em;
         width: 100%;
         bottom: 0;
-        height: 30vh;
+        height: 40vh;
         align-self: center;
         grid-template-areas:
-            "text-input text-input alignment-control up-down-keys stroke-control media-actions"
-            "emojis-container emojis-container line-control font-control fill-line media-actions";
+            "text-input text-input alignment-control  stroke-control media-actions"
+            "emojis-container emojis-container   fill-line media-actions"
+            "up-down-keys line-control font-control media-actions ";
     }
 }
 
 @media (max-width:550px) {
     .editor-options {
-        font-size: 2em;
+        font-size: 7vw;
         height: 50%;
         grid-template-areas:
             "text-input text-input"
