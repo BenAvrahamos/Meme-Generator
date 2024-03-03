@@ -10,9 +10,8 @@ function renderGallery() {
 }
 
 function onSelectImg(id) {
-    const gMeme = getGMeme()
     setImg(id)
-    renderMeme(gMeme)
+    renderMeme()
     switchSection()
 }
 

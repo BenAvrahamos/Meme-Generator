@@ -7,8 +7,8 @@ let gElCanvas
 let gCtx
 let gDownloadable = false
 
-const emojis  = {
-    emojis: ['😁', '😊', '😂', '🤣', '❤', '😍', '😒', '👌', '😘', '💕', '👍', '😎', '😉', '🤞', '✌','🎂'],
+const emojis = {
+    emojis: ['😁', '😊', '😂', '🤣', '❤', '😍', '😒', '👌', '😘', '💕', '👍', '😎', '😉', '🤞', '✌', '🎂'],
     page: { idx: 0, containerSize: 4 }
 }
 
@@ -18,13 +18,14 @@ function onInit() {
     renderGallery()
     addListeners()
     onRenderEmojis()
+    renderMeme()
 }
 
 function addListeners() {
     window.addEventListener('resize', () => {
-		resizeCanvas()
-		renderMeme(gMeme)
-	})
+        resizeCanvas()
+        renderMeme()
+    })
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
@@ -33,15 +34,15 @@ function addListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 }
 
-function onRenderEmojis(value = 0){
-    emojis.page.idx +=value
+function onRenderEmojis(value = 0) {
+    emojis.page.idx += value
     if (emojis.page.idx === 4) emojis.page.idx = 0
     if (emojis.page.idx === -1) emojis.page.idx = 3
-    
+
     const elEmojis = document.querySelector('.emojis')
     const startIdx = emojis.page.idx * emojis.page.containerSize
 
-    const slicedEmojis = emojis.emojis.slice(startIdx,startIdx +emojis.page.containerSize)
+    const slicedEmojis = emojis.emojis.slice(startIdx, startIdx + emojis.page.containerSize)
 
     console.log(slicedEmojis);
 
@@ -51,15 +52,15 @@ function onRenderEmojis(value = 0){
     elEmojis.innerHTML = strHTMLs.join('')
 }
 
-function onDrawEmoji(emoji){
-    const gMeme = getGMeme()
+function onDrawEmoji(emoji) {
+
     drawEmoji(emoji)
     updateSettings()
-    renderMeme(gMeme)
+    renderMeme()
 }
 
-function onDown(ev){
-    const gMeme = getGMeme()
+function onDown(ev) {
+
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
         const { borderStartX, borderStartY, borderEndX, borderEndY } = line
@@ -69,28 +70,28 @@ function onDown(ev){
             clickPos.x <= borderEndX &&
             clickPos.y >= borderStartY &&
             clickPos.y <= borderEndY) {
-                gStartPos = clickPos
+            gStartPos = clickPos
             switchWithClick(idx)
-            renderMeme(gMeme)
+            renderMeme()
             updateSettings()
             setMemeIsDrag(true)
         }
     });
 }
 
-function onMove(ev){
-    const gMeme = getGMeme()
+function onMove(ev) {
+
     if (!gMeme.lines[gMeme.selectedLineIdx].isDrag) return
-    
+
     const dragPos = getEvPos(ev)
     const dx = dragPos.x - gStartPos.x
-	const dy = dragPos.y - gStartPos.y
+    const dy = dragPos.y - gStartPos.y
     gStartPos = dragPos
-    renderMeme(gMeme)
+    renderMeme()
     moveLine(dx, dy)
 }
 
-function onUp(){
+function onUp() {
     setMemeIsDrag(false)
     gStartPos = ''
 
@@ -105,41 +106,43 @@ function resizeCanvas() {
     resizeLineByCanvas(gElCanvas.width)
 }
 
-function renderMeme(meme) {
+function renderMeme() {
 
-    const { selectedImgId, selectedLineIdx, lines } = meme
+
+    const { selectedImgId, selectedLineIdx, lines } = getGMeme()
     if (selectedImgId !== null) {
         const imageIdx = selectedImgId - 1
         const elImg = new Image()
         elImg.src = getImgByIdx(imageIdx)
-        elImg.onload = () => {        
+        elImg.onload = () => {
             gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-            drawLines(lines, selectedLineIdx)}
+            drawLines(lines, selectedLineIdx)
+        }
     }
 
 }
 
 function onTxtInput(elTxt) {
     setLineTxt(elTxt)
-    const gMeme = getGMeme()
-    renderMeme(gMeme)
+
+    renderMeme()
 }
 
 function drawLine(line, indx,) {
     const gMeme = getGMeme()
-    const margin = indx * gElCanvas.height / 8
 
-    const { txt, size, color, stroke } = line
+    const { txt, size, color, stroke, posX, posY, alignment } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
+    
 
-    gCtx.textAlign = line.alignment
+    gCtx.textAlign = alignment
     gCtx.textBaseline = 'middle'
 
-    if (line.alignment === 'right') gCtx.direction = 'rtl'
+    if (alignment === 'right') gCtx.direction = 'rtl'
     else gCtx.direction = 'ltr'
 
-    gCtx.fillText(txt, line.posX, line.posY)
+    gCtx.fillText(txt, posX, posY)
 
     if (stroke === true) {
 
@@ -151,11 +154,12 @@ function drawLine(line, indx,) {
     }
 
     if (indx === gMeme.selectedLineIdx && !gDownloadable) {
-        drawBorder(line.posX, line.posY,txt, indx, line.alignment)
+        drawBorder(line.posX, line.posY, txt, indx, line.alignment)
     }
 }
 
 function drawBorder(txtPosX, txtPosY, txt, indx, align) {
+
     let textAspects = gCtx.measureText(txt)
     let textHight = textAspects.actualBoundingBoxAscent + textAspects.actualBoundingBoxDescent + 30
     let textWidth = textAspects.width
@@ -196,7 +200,6 @@ function onChangeColor(value) {
 }
 
 function drawLines(lines) {
-
     lines.map((line, index) => drawLine(line, index))
 }
 
@@ -228,23 +231,23 @@ function onAlignText(dir) {
 }
 
 function getEvPos(ev) {
-	let pos = {
-		x: ev.offsetX,
-		y: ev.offsetY,
-	}
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
 
-	if (TOUCH_EVS.includes(ev.type)) {
-		
-		ev.preventDefault()        
-		ev = ev.changedTouches[0]   
+    if (TOUCH_EVS.includes(ev.type)) {
+
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
 
 
-		pos = {
-			x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-			y: ev.pageY - ev.target.offsetTop - ev.target.clientTop -100,
-		}
-	}
-	return pos
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop - 100,
+        }
+    }
+    return pos
 }
 
 
@@ -263,8 +266,10 @@ function switchSection() {
 
 function updateSettings() {
     const gMeme = getGMeme()
-    const { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
+    let { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
     const elSettings = document.querySelector('.editor-options')
+
+    if (txt  === 'text') txt = null
 
     elSettings.querySelector('input').value = txt
 
