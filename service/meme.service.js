@@ -66,7 +66,7 @@ function getImgByIdx(idx = null) {
     }
 }
 
-function getSelectedLine(){
+function getSelectedLine() {
     return gMeme.lines[gMeme.selectedLineIdx]
 }
 
@@ -112,7 +112,7 @@ function switchWithClick(idx) {
 function toggleStroke(value) {
     if (!gMeme.lines.length) return
     getSelectedLine().stroke = value
-    
+
 }
 
 function alignText(dir) {
@@ -141,13 +141,13 @@ function moveLine(dx, dy) {
     getSelectedLine().posY += dy
 }
 
-function addLine(gElCanvas) {
+function addLine(gElCanvas, txt = 'text') {
 
     const margin = (gMeme.lines.length - 1) * gElCanvas.height / 8
 
     gMeme.lines.push(
         {
-            txt: 'text',
+            txt: txt,
             size: gElCanvas.width / 10,
             color: '#FFFFFF',
             stroke: false,
@@ -185,8 +185,8 @@ function deleteLine() {
 
     const indx = gMeme.selectedLineIdx
     gMeme.lines.splice(indx, 1)
-    if (indx === -1) gMeme.selectedLineIdx = 1 
     gMeme.selectedLineIdx = indx - 1
+    if (gMeme.selectedLineIdx === -1) gMeme.selectedLineIdx = gMeme.lines.length - 1
     updateSettings()
 }
 
@@ -202,9 +202,16 @@ function clearFilter() {
 }
 
 function drawEmoji(emoji) {
-    getSelectedLine().txt += emoji
+
+    if (!gMeme.lines.length) {
+        addLine(gElCanvas)
+        gMeme.selectedLineIdx = 0
+    }
+    if (getSelectedLine().txt === 'text') getSelectedLine().txt = emoji
+    else getSelectedLine().txt += emoji
+
 }
 
-function resizeLineByCanvas(containerSize){
-    gMeme.lines.forEach( line => line.size =  containerSize/10)
+function resizeLineByCanvas(containerSize) {
+    gMeme.lines.forEach(line => line.size = containerSize / 10)
 }

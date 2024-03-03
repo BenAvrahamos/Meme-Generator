@@ -51,8 +51,6 @@ function onRenderEmojis(value = 0) {
 }
 
 function onDrawEmoji(emoji) {
-    const gMeme = getGMeme()
-    if (!gMeme.lines.length) return
     drawEmoji(emoji)
     updateSettings()
     renderMeme()
@@ -151,7 +149,7 @@ function drawLine(line, indx,) {
     }
 
 
-    if  (!gDownloadable) {
+    if (!gDownloadable && indx === gMeme.selectedLineIdx) {
         drawBorder(line.posX, line.posY, txt, indx, line.alignment)
     }
 }
@@ -187,8 +185,8 @@ function downloadCanvas() {
     elLink.download = 'my-img'
     elLink.href = dataUrl
     elLink.click()
-        gDownloadable = !gDownloadable
-        renderMeme()
+    gDownloadable = !gDownloadable
+    renderMeme()
 }
 
 
@@ -276,6 +274,8 @@ function updateSettings() {
         elSettings.querySelector('input').value = ''
         return
     }
+    
+     console.log(gMeme.selectedLineIdx);
     let { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
 
     if (txt === 'text') txt = null
@@ -286,6 +286,7 @@ function updateSettings() {
     else elSettings.querySelector('input[type="checkbox"]').checked = false
 
     elSettings.querySelector('input[type="color"]').value = color
+    renderMeme()
 
 }
 
