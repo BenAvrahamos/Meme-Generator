@@ -8,15 +8,24 @@ canvas {
 }
 
 .editor-options {
-    font-size: 1.5em;
+    font-size: 2em;
     margin: 0;
     box-shadow: 0 0 15px 4px;
-    background-color: rgb(83, 83, 83);
+    background-color: rgba(83, 83, 83, 0.466);
     height: 90%;
+    color: rgba(0, 0, 0, 0.288);
+    
 }
 
-.editor-options button, input {
+.editor-options button {
     font-size: 1em;
+border: black solid 1px;
+color: rgba(0, 0, 0, 0.829);
+transition: 0.2s;
+}
+
+.editor-options  input {
+    font-size: 2vw;
 }
 
 .emojis-container {
@@ -28,3 +37,12 @@ canvas {
     width: 2em;
 }
 
+
+
+
+.editor-options button:hover {
+    color: black;
+
+    transform: scale(1.2);
+    z-index: 10;
+}

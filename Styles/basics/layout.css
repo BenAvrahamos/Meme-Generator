@@ -9,7 +9,7 @@
 /* Gallery */
 .gallery-img-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 500px));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 500px));
     justify-content: center;
 }
 
@@ -41,8 +41,7 @@
         "up-down-keys font-control"
         "stroke-control fill-line";
     height: 100%;
-    width: max-content;
-
+    width: 28vw;
 }
 
 .text-input {

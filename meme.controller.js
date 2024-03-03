@@ -44,8 +44,6 @@ function onRenderEmojis(value = 0) {
 
     const slicedEmojis = emojis.emojis.slice(startIdx, startIdx + emojis.page.containerSize)
 
-    console.log(slicedEmojis);
-
     const strHTMLs = slicedEmojis.map(emoji =>
         `<button class="emoji" onclick="onDrawEmoji('${emoji}')">${emoji}</button>`)
 
@@ -53,14 +51,15 @@ function onRenderEmojis(value = 0) {
 }
 
 function onDrawEmoji(emoji) {
-
+    const gMeme = getGMeme()
+    if (!gMeme.lines.length) return
     drawEmoji(emoji)
     updateSettings()
     renderMeme()
 }
 
 function onDown(ev) {
-
+ 
     const clickPos = getEvPos(ev)
     gMeme.lines.forEach((line, idx) => {
         const { borderStartX, borderStartY, borderEndX, borderEndY } = line
@@ -80,7 +79,7 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
-
+    if (!gMeme.lines.length) return
     if (!gMeme.lines[gMeme.selectedLineIdx].isDrag) return
 
     const dragPos = getEvPos(ev)
@@ -96,6 +95,7 @@ function onUp() {
     gStartPos = ''
 
 }
+
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
@@ -123,6 +123,7 @@ function renderMeme() {
 }
 
 function onTxtInput(elTxt) {
+    if (!gMeme.lines.length) addLine(gElCanvas)
     setLineTxt(elTxt)
 
     renderMeme()
@@ -130,11 +131,12 @@ function onTxtInput(elTxt) {
 
 function drawLine(line, indx,) {
     const gMeme = getGMeme()
-
+    
+    
     const { txt, size, color, stroke, posX, posY, alignment } = line
     gCtx.fillStyle = `${color}`
     gCtx.font = `${size}px Arial`
-    
+
 
     gCtx.textAlign = alignment
     gCtx.textBaseline = 'middle'
@@ -219,15 +221,14 @@ function onAddLine() {
 }
 
 function onToggleStroke(value) {
-    const gMeme = getGMeme()
+if (!gMeme.lines.length) return
     toggleStroke(value)
-    renderMeme(gMeme)
+    renderMeme()
 }
 
 function onAlignText(dir) {
-    const gMeme = getGMeme()
     alignText(dir)
-    renderMeme(gMeme)
+    renderMeme()
 }
 
 function getEvPos(ev) {
@@ -266,10 +267,14 @@ function switchSection() {
 
 function updateSettings() {
     const gMeme = getGMeme()
-    let { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
     const elSettings = document.querySelector('.editor-options')
+    if (!gMeme.lines.length) {
+        elSettings.querySelector('input').value = ''
+        return
+    }
+    let { txt, color, stroke } = gMeme.lines[gMeme.selectedLineIdx]
 
-    if (txt  === 'text') txt = null
+    if (txt === 'text') txt = null
 
     elSettings.querySelector('input').value = txt
 

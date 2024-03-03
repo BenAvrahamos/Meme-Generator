@@ -1,28 +1,4 @@
-/* @media (max-width:1210px) {
-    .header h1 {
-        font-size: 1.5em;
-        width: 50%;
-        margin: 0;
-    }
-
-    .nav-btn {
-        height: 80%;
-        border-radius: 0;
-        padding: 0;
-    }
-
-    .canvas-container {
-        width: 50vw;
-        height: 50vw;
-    }
-
-    .editor-options {
-        font-size: 1em;
-
-    }
-} */
-
-@media (max-width:1030px) {
+@media (max-width:1250px) {
     .canvas-container {
         width: 420px;
         height: 420px;
@@ -39,6 +15,17 @@
             "emojis-container emojis-container   fill-line media-actions"
             "up-down-keys line-control font-control media-actions ";
     }
+
+    .editor-options input {
+        font-size: 1em;
+    }
+
+    .nav-btn {
+        display: none;
+    }
+.nav-btn-compact{
+    display: block;
+}
 }
 
 @media (max-width:550px) {

@@ -1,5 +1,5 @@
 body{
-    background-color: gray;
+  background: linear-gradient(to left, #20c7ddb6 ,rgba(255, 0, 0, 0.356), rgba(0, 128, 0, 0.596));
     min-width: 460px
 }
 

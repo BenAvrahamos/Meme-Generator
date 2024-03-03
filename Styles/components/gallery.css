@@ -1,24 +1,32 @@
 .gallery-img-container{
-    gap: 10px;
-    margin-inline: 2em;
-    margin-block: 1em;
+    gap: 2em;
+    margin-block: 2em;
+ 
 }
+
+
 
 .gallery-search-bar{
     height: 5vh;
-    background-color: rgb(83, 83, 83);
+    background-color: rgba(83, 83, 83, 0.76);
     box-shadow: 0 0 1px 1px;
     border: 2px solid lightblue;
 
 }
 
-.gallery-img{
+.gallery img{
     width: 100%;
     align-self: center;
     box-shadow: 0 0 15px 4px;
     border: 2px solid lightblue;
-    margin-block: 5px;
+    transition: 0.2s;
+
 }
+
+.gallery-img:hover{
+    transform: scale(1.13);
+    z-index: 10;
+    }
 
 .flexible-btn{
     margin-left: 0;

@@ -38,7 +38,7 @@ var gMeme = {
 
         alignment: 'center',
 
-        posX: 300,
+        posX: 200,
         posY: 100,
 
         borderStartX: null,
@@ -76,6 +76,7 @@ function setLineTxt(elTxt) {
 }
 
 function setMemeIsDrag(value) {
+    if (!gMeme.lines.length) return
     getSelectedLine().isDrag = value
 }
 
@@ -111,6 +112,7 @@ function switchWithClick(idx) {
 function toggleStroke(value) {
     if (!gMeme.lines.length) return
     getSelectedLine().stroke = value
+    
 }
 
 function alignText(dir) {
@@ -185,6 +187,7 @@ function deleteLine() {
     gMeme.lines.splice(indx, 1)
 
     gMeme.selectedLineIdx = indx - 1
+    updateSettings()
 }
 
 

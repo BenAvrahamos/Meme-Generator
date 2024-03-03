@@ -1,10 +1,10 @@
 .header {
-    background-color: #20c7ddb6;
-
+background: linear-gradient(to right, #20c7ddb6, rgba(255, 0, 0, 0.603));
     border: lightblue solid 2px;
     box-shadow: 0 0 15px 4px;
     margin-bottom: 10px;
     height: 10%;
+
 }
 
 .nav-btn {
@@ -21,7 +21,14 @@
     box-shadow: 0 0 15px 4px;
 }
 
+.nav-btn-compact{
+    font-size: 3em;
+    margin-right: 0.2em;
+    display: none;
+}
+
 .header h1 {
     font-size: 2em;
     text-align: center;
+    flex-grow: 1;
 }
